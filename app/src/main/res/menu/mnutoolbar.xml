@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="MissingDefaultResource">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mnu_inicioAdmin"
+            android:icon="@drawable/inicio"
+            android:title="Inicio"/>
+        <item
+            android:id="@+id/mnu_miinfoAdmin"
+            android:icon="@drawable/miinfo"
+            android:title="Mi información"/>
+        <item
+            android:id="@+id/mnu_pedidosAdmin"
+            android:icon="@drawable/mispedidos"
+            android:title="Pedidos"/>
+
+    </group>
+    <item
+        android:id="@+id/nav_etiq_rec"
+        android:title="Configuración">
+        <menu>
+            <item
+                android:id="@+id/mnu_cerrarAdmin"
+                android:icon="@drawable/salir"
+                android:title="Cerrar Sesión"/>
+        </menu>
+    </item>
+</menu>

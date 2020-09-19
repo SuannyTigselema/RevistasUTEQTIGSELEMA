@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="0dp"
+    tools:context=".activity_detalle_articulo">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTituloDA"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="Las Bioferias y su potencial para promover el consumo de productos agroecológicos en Quito"
+            android:textSize="20sp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:context=".activity_detalle_articulo">
+            <TextView
+                android:id="@+id/txtAutores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView6"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="6dp"
+                android:text="Autores:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtAutores"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="15dp"
+                android:text="DOI:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView7"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="15dp"
+                android:text="Palabras clave:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtpalabrasclaveAD"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="15dp"
+                android:text="Resumen:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtDoiAD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtAutores"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="15dp"
+                android:layout_toEndOf="@+id/textView7"
+                android:text="https://doi.org/10.18779/csye.v1i1.247"
+                android:textColor="#3F51B5"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/txtpalabrasclaveAD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView9"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="6dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/txtResumenAD"
+                android:layout_width="395dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView11"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="9dp"
+                android:layout_marginLeft="11dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginBottom="11dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:text="Los Microcréditos como herramienta generadora de recursos contribuyen a mejorar la situación socioeconómica de sus familias. De manera preferencial estos, se conceden a grupos de mujeres de estratos sociales bajos y medios. El objetivo que se persigue es recibir de las instituciones financieras, microcréditos para mujeres emprendedoras que necesitan mejorar su calidad de vida y reducir la pobreza en Quevedo. Se aplicó encuestas a mujeres económicamente activas, con actividades micro-empresariales, para el tamaño de la muestra se empleó fórmula de población inferior a los 100.000. La actividad micro empresarial desarrollada por las mujeres en Quevedo está identificada por la comercialización de ropa con el 30%, seguido de la venta de víveres con 29.36%, comercialización de zapatos, entre las más importantes. En su actividad diaria comercial, el 50.42% ha recibido financiamiento de parte de la banca privada y el 34.35% de las mujeres han obtenido créditos con el Banco Nacional de Fomento. El 81.44% consideran que la calificación al interés que fijan las Instituciones financieras es aceptable. Los recursos financieros obtenidos de los Microcréditos es del 65% que son destinados a inversión en el negocio, mientras que el 35% es utilizado para pagos de gastos generales. Para el 66.48% de las mujeres de Quevedo, los microcréditos incidieron para el mejoramiento de la calidad de vida y el 33.52 contribuyeron a la reducción de la pobreza en cada hogar de las mujeres emprendedoras, impulsando el desarrollo socioeconómico de las familias del cantón."
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="228dp"
+            android:textAlignment="center"
+            tools:context=".activity_detalle_articulo">
+
+            <Button
+                android:id="@+id/btnGuardar"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="102dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="37dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bordes_redondos3"
+                android:text="VER ARTÍCULO"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>

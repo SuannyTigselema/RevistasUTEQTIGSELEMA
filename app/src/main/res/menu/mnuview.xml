@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mnu_inicio"
+            android:icon="@drawable/inicio"
+            android:title="Inicio"/>
+        <item
+            android:id="@+id/mnu_miinfo"
+            android:icon="@drawable/miinfo"
+            android:title="Mi información"/>
+        <item
+            android:id="@+id/mnu_mispedidos"
+            android:icon="@drawable/mispedidos"
+            android:title="Mis pedidos"/>
+        <item
+            android:id="@+id/mnu_notificacion"
+            android:icon="@drawable/notificacion"
+            android:title="Notificaciones"/>
+
+    </group>
+    <item
+        android:id="@+id/nav_etiq_rec"
+        android:title="Configuración">
+        <menu>
+            <item
+                android:id="@+id/mnu_cerrar"
+                android:icon="@drawable/salir"
+                android:title="Cerrar Sesión"/>
+        </menu>
+    </item>
+</menu>
