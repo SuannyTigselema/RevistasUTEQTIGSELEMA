@@ -28,7 +28,7 @@
         android:layout_marginStart="11dp"
         style="@style/TextAppearance.AppCompat.Medium"
         android:textSize="18dp"
-        android:text="Ediciones:">
+        android:text="Categorías:">
     </TextView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rclArticulosA"

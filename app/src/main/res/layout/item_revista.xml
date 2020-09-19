@@ -36,40 +36,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/view"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="12dp"
-                android:elevation="12dp"
-                app:cardCornerRadius="25dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imgPortada">
-
-            </androidx.cardview.widget.CardView>
-
             <TextView
                 android:id="@+id/txtNombre"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:text="Victoria Smith"
                 style="@style/TextAppearance.AppCompat.Title"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@+id/view"
-                app:layout_constraintTop_toTopOf="@+id/view"
-                app:layout_constraintBottom_toTopOf="@+id/desc"/>
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="REVISTA"
+                app:layout_constraintBottom_toTopOf="@+id/desc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgPortada" />
 
             <TextView
                 android:id="@+id/desc"
+                style="@style/TextAppearance.AppCompat.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Work"
-                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_marginStart="16dp"
+                android:text="abreviatura"
                 android:textColor="#8A000000"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@+id/view"
-                app:layout_constraintTop_toBottomOf="@+id/txtNombre"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtNombre" />
 
             <Button
                 android:id="@+id/arrowBtn"
@@ -77,9 +64,11 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="12dp"
                 android:background="@drawable/expand"
-                app:layout_constraintBottom_toBottomOf="@+id/view"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view" />
+                app:layout_constraintHorizontal_bias="0.885"
+                app:layout_constraintStart_toEndOf="@+id/txtNombre"
+                app:layout_constraintTop_toBottomOf="@+id/imgPortada"
+                tools:ignore="MissingConstraints" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/expandableView"
