@@ -147,9 +147,9 @@ public class activityPrincipal extends AppCompatActivity{
                                     String nombreselec= lstRevista.get(opcselec).getJournal_id();
                                     Intent intent = new Intent(activityPrincipal.this,Ediciones.class);
 
-                                    Bundle b = new Bundle();
-                                    b.putString("revistaID", nombreselec);
-                                    intent.putExtras(b);
+                                   //Bundle b = new Bundle();
+                                    //b.putString("revistaID", nombreselec);
+                                    intent.putExtra("revista",lstRevista.get(opcselec));
 
                                     startActivity(intent);
 

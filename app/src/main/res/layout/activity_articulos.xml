@@ -6,10 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".activity_articulos">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/txtTituloEdicionA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:layout_marginStart="11dp"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:text="Revista Ciencias Sociales y Económicas">
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginStart="11dp"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="18dp"
+        android:text="Ediciones:">
+    </TextView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rclArticulosA"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
     </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,9 +3,10 @@ package com.example.revistasuteq.objetos;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class revista {
+public class revista implements Serializable {
     String journal_id;
     String portada_url;
     String abrev;

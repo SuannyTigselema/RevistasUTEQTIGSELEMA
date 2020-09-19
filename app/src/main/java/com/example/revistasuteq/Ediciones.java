@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.revistasuteq.adaptadores.adpEdicion;
 import com.example.revistasuteq.adaptadores.adpRevista;
+import com.example.revistasuteq.objetos.articulo;
 import com.example.revistasuteq.objetos.edicion;
 import com.example.revistasuteq.objetos.revista;
 
@@ -73,29 +75,30 @@ public class Ediciones extends AppCompatActivity {
     RecyclerView edicionRcl;
     ProgressDialog progress;
     ArrayList<edicion> lstEdicion;
-    String revistaID;
-    TextView txt;
+    ArrayList<revista> lstRevista;
+    TextView txt,txtTitulo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ediciones);
 
         Bundle b = this.getIntent().getExtras();
-        revistaID=b.getString("revistaID");
-        Toast toast1=Toast.makeText(getApplicationContext(),
-                "Seleccionaste: " + revistaID, Toast.LENGTH_SHORT);
-        toast1.show();
+        revista rev_selec = (revista) getIntent().getSerializableExtra("revista");
+      /*  Toast toast1=Toast.makeText(getApplicationContext(),
+                "Seleccionaste: " + rev_selec.getJournal_id(), Toast.LENGTH_SHORT);
+        toast1.show();*/
 
         edicionRcl=new RecyclerView(this);
         edicionRcl=(RecyclerView)findViewById(R.id.rclEdicion);
         edicionRcl.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-
+        txtTitulo=findViewById(R.id.txtTituloRevistaE);
+        txtTitulo.setText(rev_selec.getNombre());
         lstEdicion=new ArrayList<edicion>();
         handleSSLHandshake();
         progress=new ProgressDialog(this);
         progress.setMessage("Consultando...");
         progress.show();
-        String url="https://revistas.uteq.edu.ec/ws/issues.php?j_id="+revistaID+"";
+        String url="https://revistas.uteq.edu.ec/ws/issues.php?j_id="+rev_selec.getJournal_id()+"";
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonArrayRequest jobReq = new JsonArrayRequest(Request.Method.GET, url,
                 new Response.Listener<JSONArray>() {
@@ -124,9 +127,9 @@ public class Ediciones extends AppCompatActivity {
                                     String nombreselec= lstEdicion.get(opcselec).getId();
                                     Intent intent = new Intent(Ediciones.this,activity_articulos.class);
 
-                                    Bundle b = new Bundle();
-                                    b.putString("edicionID", nombreselec);
-                                    intent.putExtras(b);
+                                   // Bundle b = new Bundle();
+                                  //  b.putString("edicionID", nombreselec);
+                                    intent.putExtra("edicion", lstEdicion.get(opcselec));
 
                                     startActivity(intent);
 

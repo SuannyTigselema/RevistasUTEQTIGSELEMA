@@ -7,14 +7,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.revistasuteq.objetos.articulo;
 
 public class activity_detalle_articulo extends AppCompatActivity {
-
+    articulo  art_selec;
     TextView txtTitulo,txtDOI,txtPalabrasClave,txtResumen,txtAutores;
+    Button btnVer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +26,19 @@ public class activity_detalle_articulo extends AppCompatActivity {
         txtAutores=findViewById(R.id.txtAutores);
         txtPalabrasClave=findViewById(R.id.txtpalabrasclaveAD);
         txtResumen=findViewById(R.id.txtResumenAD);
+        btnVer=findViewById(R.id.btnVer);
+        btnVer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                enviar_visualizador();
+            }
+        });
 
-        articulo  art_selec = (articulo) getIntent().getSerializableExtra("articulo");
+        art_selec = (articulo) getIntent().getSerializableExtra("articulo");
         txtTitulo.setText(art_selec.getTitulo());
         txtDOI.setText(art_selec.getDoi());
         txtResumen.setText(Html.fromHtml(art_selec.getResumen()));
+
       //  txtResumen.setText(art_selec.toString());
         String keys=" ";
         for (int i =0; i<art_selec.getLstKeywordss().size();i++)
@@ -48,9 +58,9 @@ public class activity_detalle_articulo extends AppCompatActivity {
         txtAutores.setText(autores);
        // Bundle b = this.getIntent().getExtras();
         //String articuloID=b.getString("articuloID");
-        Toast toast1=Toast.makeText(getApplicationContext(),
+       /* Toast toast1=Toast.makeText(getApplicationContext(),
                 "Seleccionaste: " + art_selec.getFecha_publicacion(), Toast.LENGTH_SHORT);
-        toast1.show();
+        toast1.show();*/
 
         txtDOI.setOnClickListener(new View.OnClickListener()
         {
@@ -62,5 +72,13 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void enviar_visualizador() {
+        Intent intent = new Intent(this, activity_visualizador.class);
+        intent.putExtra("articulo", art_selec);
+
+        startActivity(intent);
+        this.finish();
     }
 }

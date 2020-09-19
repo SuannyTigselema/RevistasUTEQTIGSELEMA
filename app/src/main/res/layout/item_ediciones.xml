@@ -95,7 +95,7 @@
                 android:layout_below="@+id/txtVolumen6"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="104dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:text="Publicado:"
                 android:textSize="10sp" />
 
@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtVolumen6"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="2dp"
                 android:layout_toEndOf="@+id/txtVolumen7"
                 android:text=" 2020-06-30"
                 android:textSize="10sp" />

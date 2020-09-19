@@ -23,6 +23,7 @@ import com.example.revistasuteq.adaptadores.adpCategoria;
 import com.example.revistasuteq.adaptadores.adpEdicion;
 import com.example.revistasuteq.objetos.categoria;
 import com.example.revistasuteq.objetos.edicion;
+import com.example.revistasuteq.objetos.revista;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,9 +76,8 @@ public class activity_articulos extends AppCompatActivity {
     ProgressDialog progress;
     ArrayList<categoria> lstCategoria;
     String revistaID;
-    TextView txt;
+    TextView txt,txtTitulo;
     RecyclerView rclArticulos;
-    String edicionID;
     ArrayList<String> arrayListGroup;
     LinearLayoutManager layoutManagerGroup;
     adpCategoria adapterGroup;
@@ -86,12 +86,13 @@ public class activity_articulos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_articulos);
 
-        Bundle b = this.getIntent().getExtras();
-        edicionID=b.getString("edicionID");
-        Toast toast1=Toast.makeText(getApplicationContext(),
-                "Seleccionaste: " + edicionID, Toast.LENGTH_SHORT);
-        toast1.show();
-
+        final edicion edic_selec = (edicion) getIntent().getSerializableExtra("edicion");
+       // edicionID=b.getString("edicion");
+      /*  Toast toast1=Toast.makeText(getApplicationContext(),
+                "Seleccionaste: " + edic_selec.getId(), Toast.LENGTH_SHORT);
+        toast1.show();*/
+        txtTitulo=findViewById(R.id.txtTituloEdicionA);
+        txtTitulo.setText("Vol."+edic_selec.getVolumen()+" Núm."+edic_selec.getNumero()+":\n"+edic_selec.getTitulo());
         rclArticulos=new RecyclerView(this);
         rclArticulos=findViewById(R.id.rclArticulosA);
         rclArticulos.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
@@ -100,7 +101,7 @@ public class activity_articulos extends AppCompatActivity {
         progress=new ProgressDialog(this);
         progress.setMessage("Consultando...");
         progress.show();
-        String url="https://revistas.uteq.edu.ec/ws/pubssections.php?i_id="+edicionID+"";
+        String url="https://revistas.uteq.edu.ec/ws/pubssections.php?i_id="+edic_selec.getId()+"";
 
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonArrayRequest jobReq = new JsonArrayRequest(Request.Method.GET, url,
@@ -117,7 +118,7 @@ public class activity_articulos extends AppCompatActivity {
                                 lstCategoria.add(rev);
                             }
                             progress.hide();
-                            adpCategoria adapter=new adpCategoria(activity_articulos.this,lstCategoria,edicionID);
+                            adpCategoria adapter=new adpCategoria(activity_articulos.this,lstCategoria,edic_selec.getId());
 
                             rclArticulos.setAdapter(adapter);
 

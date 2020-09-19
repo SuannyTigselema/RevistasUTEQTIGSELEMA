@@ -1,6 +1,8 @@
 package com.example.revistasuteq.objetos;
 
-public class edicion {
+import java.io.Serializable;
+
+public class edicion implements Serializable {
     String id;
     String volumen;
     String numero;

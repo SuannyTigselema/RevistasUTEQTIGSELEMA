@@ -106,9 +106,6 @@ public class adpCategoria extends RecyclerView.Adapter<adpCategoria.MyViewHolder
         //https://revistas.uteq.edu.ec/ws/pubs.php?i_id=issued_ID&section=section_ID
         String url="https://revistas.uteq.edu.ec/ws/pubs.php?i_id="+edicionID+"&section="+arrayListGroup.get(position).getSectionID()+"";
         final ArrayList<articulo> arrayListMember = new ArrayList<articulo>();
-        final ArrayList<galeys> arrayListGaleys = new ArrayList<galeys>();
-        final ArrayList<keywords> arrayListKeys = new ArrayList<keywords>();
-        final ArrayList<autores> arrayListAut = new ArrayList<autores>();
         RequestQueue queue = Volley.newRequestQueue(activity);
         JsonArrayRequest jobReq = new JsonArrayRequest(Request.Method.GET, url,
                 new Response.Listener<JSONArray>() {
@@ -131,6 +128,9 @@ public class adpCategoria extends RecyclerView.Adapter<adpCategoria.MyViewHolder
                                 rev.setSeq(obj.getString("seq"));
                                 galeys gal;
 
+                                final ArrayList<galeys> arrayListGaleys = new ArrayList<galeys>();
+                                final ArrayList<keywords> arrayListKeys = new ArrayList<keywords>();
+                                final ArrayList<autores> arrayListAut = new ArrayList<autores>();
                                 for (int j=0;j<obj.getJSONArray("galeys").length();j++)
                                 {
                                     gal=new galeys();
