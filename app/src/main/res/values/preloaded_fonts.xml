@@ -2,5 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/allura</item>
+        <item>@font/chela_one</item>
+        <item>@font/playfair_display</item>
     </array>
 </resources>
