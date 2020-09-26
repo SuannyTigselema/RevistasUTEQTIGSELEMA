@@ -22,13 +22,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class activity_detalle_articulo extends AppCompatActivity {
     articulo art_selec;
     TextView txtTitulo, txtDOI, txtPalabrasClave, txtResumen, txtAutores;
     String doi;
+    Boolean ban;
     Button btnVer, btnSuscribirse_Detalle;
     int imgResource;
     @Override
@@ -51,14 +56,14 @@ public class activity_detalle_articulo extends AppCompatActivity {
         });
         //Preguntar si está suscrito o no
         //------------------------------------------------------------------------------------------------------
-        imgResource = R.drawable.icon_suscrito;
-        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-        btnSuscribirse_Detalle.setText("Suscrito");
+        //imgResource = R.drawable.icon_suscrito;
+        //btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
+        //btnSuscribirse_Detalle.setText("Suscrito");
         //------------------------------------------------------------------------------------------------------
         //------------------------------------------------------------------------------------------------------
-        imgResource = R.drawable.icon_no_suscrito_blanco;
-        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-        btnSuscribirse_Detalle.setText("Suscribirse");
+        //imgResource = R.drawable.icon_no_suscrito_blanco;
+        //btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
+        //btnSuscribirse_Detalle.setText("Suscribirse");
         //------------------------------------------------------------------------------------------------------
         art_selec = (articulo) getIntent().getSerializableExtra("articulo");
         txtTitulo.setText(art_selec.getTitulo());
@@ -69,6 +74,33 @@ public class activity_detalle_articulo extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String json=snapshot.child("Suscripciones").getValue().toString();
+                List<String> sList = new ArrayList<String>();
+                try {
+                    JSONObject jsonObject = new JSONObject(json);
+                    ban=false;
+                    for (int i =0;i<jsonObject.length();i++){
+
+                        if(doi.equals(jsonObject.get("doi").toString())){
+                            ban=true;
+                        }
+                        //sList.add(jsonObject.get("doi").toString());
+                    }
+                    if (ban){
+                        int imgResource = R.drawable.icon_suscrito;
+                        //int imgResource = R.drawable.icon_no_suscrito_blanco;
+                        btnSuscribirse_Detalle.getResources();
+                        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
+                        btnSuscribirse_Detalle.setText("Suscrito");
+                    }
+                    else {
+                             imgResource = R.drawable.icon_no_suscrito_blanco;
+                        btnSuscribirse_Detalle.getResources();
+                         btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
+                                    btnSuscribirse_Detalle.setText("Suscribirse");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -120,30 +152,42 @@ public class activity_detalle_articulo extends AppCompatActivity {
 
     public void suscribirse(View view)
     {
+        if (ban){
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference(getString(R.string.usuario));
+            JSONObject object = new JSONObject();
+            try {
+                object.put("doi", "Nul");
+                myRef.child("Suscripciones").setValue(object.toString());
+                Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
+                //guardado en la bd
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
         //Si se suscribió cambiar ícono e imagen
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
         FirebaseMessaging.getInstance().subscribeToTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                int imgResource = R.drawable.icon_suscrito;
-                //int imgResource = R.drawable.icon_no_suscrito_blanco;
-                btnSuscribirse_Detalle.getResources();
-                btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-                btnSuscribirse_Detalle.setText("Suscrito");
-                Toast.makeText(activity_detalle_articulo.this, "Recibira notificaciones de este articulo", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(activity_detalle_articulo.this, "Recibira notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                 //se subscribio a topic general
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                 JSONObject object = new JSONObject();
+
                 try {
+
                     object.put("doi", doi);
                     myRef.child("Suscripciones").setValue(object.toString());
+
                     //guardado en la bd
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                        //items.stream().collect(Collectors.toMap(Item::getValue, Item::getType));
-
+                //items.stream().collect(Collectors.toMap(Item::getValue, Item::getType));
                 //Toast.makeText(activity_detalle_articulo.this, "Se guardo en la bd como un articulo a recibir notificaciones", Toast.LENGTH_SHORT).show();
             }
         });
@@ -154,5 +198,5 @@ public class activity_detalle_articulo extends AppCompatActivity {
 //        btnSuscribirse_Detalle.getResources();
 //        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
 //        btnSuscribirse_Detalle.setText("Suscribirse");
-    }
+    }}
 }

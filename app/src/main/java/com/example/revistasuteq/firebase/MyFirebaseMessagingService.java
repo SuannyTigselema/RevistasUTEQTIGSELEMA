@@ -23,7 +23,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         createNotification("titulo","cuerpo","img",getApplicationContext());
     }
     public void createNotification(String titulo,String detalle,String img, Context context) {
-
         NotificationManager notifManager = null;
         final int NOTIFY_ID = 0; // ID of notification
         //String id = context.getString(R.string.default_notification_channel_id); // default_channel_id
