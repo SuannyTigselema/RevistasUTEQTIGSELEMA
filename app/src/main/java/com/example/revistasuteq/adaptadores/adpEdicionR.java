@@ -27,17 +27,6 @@ public class adpEdicionR extends RecyclerView.Adapter<adpEdicionR.MyViewHolder>
 
     private ArrayList<edicion> mLista;
 
-    public TextView lblVolumen;
-    public TextView lblNumero;
-    public TextView lblTitulo;
-    public TextView lblDOI;
-    public TextView lblFechaPublicacion;
-    public ImageView imgPortadaE;
-
-    public ImageView imgPortada;
-    public TextView txtTitulo;
-    public TextView txtDoi, txtPubli;
-
     public adpEdicionR(Context context, ArrayList<edicion> lista) {
         mContext = context;
         mLista=lista;
@@ -55,7 +44,9 @@ public class adpEdicionR extends RecyclerView.Adapter<adpEdicionR.MyViewHolder>
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        int view_type;
+        ImageView imgPortada;
+        TextView txtTitulo, txtDoi, txtPubli;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -82,16 +73,16 @@ public class adpEdicionR extends RecyclerView.Adapter<adpEdicionR.MyViewHolder>
     public void onBindViewHolder(@NonNull adpEdicionR.MyViewHolder holder, int position) {
         try {
 
-            txtTitulo.setText("Vol. "+mLista.get(position).getVolumen()
+           holder.txtTitulo.setText("Vol. "+mLista.get(position).getVolumen()
                     +" Núm. "+mLista.get(position).getNumero()
                     +": "+mLista.get(position).getTitulo());
 
-            txtDoi.setText(mLista.get(position).getDoi());
-            txtPubli.setText(mLista.get(position).getFecha_publicacion());
+            holder.txtDoi.setText(mLista.get(position).getDoi());
+            holder.txtPubli.setText(mLista.get(position).getFecha_publicacion());
 
             Glide.with(mContext)
                     .load(mLista.get(position).getImagen())
-                    .into(imgPortada);
+                    .into(holder.imgPortada);
 
 
 

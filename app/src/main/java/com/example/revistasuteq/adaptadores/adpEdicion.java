@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.revistasuteq.Ediciones;
 import com.example.revistasuteq.R;
 import com.example.revistasuteq.objetos.categoria;
 import com.example.revistasuteq.objetos.edicion;
@@ -28,16 +29,11 @@ public class adpEdicion extends RecyclerView.Adapter<adpEdicion.MyViewHolder>
 
     private ArrayList<edicion> mLista;
 
-    public TextView lblVolumen;
-    public TextView lblNumero;
-    public TextView lblTitulo;
-    public TextView lblDOI;
-    public TextView lblFechaPublicacion;
-    public ImageView imgPortadaE;
+
 
     public adpEdicion(Context context, ArrayList<edicion> lista) {
         mContext = context;
-        mLista=lista;
+        this.mLista=lista;
     }
 
     @Override
@@ -53,6 +49,8 @@ public class adpEdicion extends RecyclerView.Adapter<adpEdicion.MyViewHolder>
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         int view_type;
+        public TextView lblVolumen,lblNumero, lblTitulo, lblDOI, lblFechaPublicacion;
+        public ImageView imgPortadaE;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             lblVolumen=(TextView) itemView.findViewById(R.id.txtVolumen);
@@ -67,9 +65,8 @@ public class adpEdicion extends RecyclerView.Adapter<adpEdicion.MyViewHolder>
     @NonNull
     @Override
     public adpEdicion.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        view= LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_ediciones,null,false);
+        LayoutInflater inflr = LayoutInflater.from(mContext);
+        View view=inflr.inflate(R.layout.item_ediciones,null,false);
         view.setOnClickListener(this);
         return new MyViewHolder(view);
     }
@@ -77,14 +74,15 @@ public class adpEdicion extends RecyclerView.Adapter<adpEdicion.MyViewHolder>
     @Override
     public void onBindViewHolder(@NonNull adpEdicion.MyViewHolder holder, int position) {
         try {
-            lblVolumen.setText(mLista.get(position).getVolumen());
-            lblNumero.setText(mLista.get(position).getNumero());
-            lblTitulo.setText(mLista.get(position).getTitulo());
-            lblDOI.setText(mLista.get(position).getDoi());
-            lblFechaPublicacion.setText(mLista.get(position).getFecha_publicacion());
+            edicion revi=mLista.get(position);
+            holder.lblVolumen.setText(revi.getVolumen());
+            holder.lblNumero.setText(revi.getNumero());
+            holder.lblTitulo.setText(revi.getTitulo());
+            holder.lblDOI.setText(revi.getDoi());
+            holder.lblFechaPublicacion.setText(revi.getFecha_publicacion());
             Glide.with(mContext)
-                    .load(mLista.get(position).getImagen())
-                    .into(imgPortadaE);
+                    .load(revi.getImagen())
+                    .into(holder.imgPortadaE);
         }catch (Exception e){
            String res=e.toString();
         }
