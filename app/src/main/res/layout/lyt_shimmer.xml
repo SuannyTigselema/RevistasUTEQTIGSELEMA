@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/colorGrisClaro">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/trjShimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="3dp"
+                android:padding="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/txtFechaArticuloS"
+                        android:layout_width="160dp"
+                        android:layout_height="20dp"
+                        android:layout_below="@+id/txtNombreArticuloS"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/lyt_bordesredondos"
+                        android:backgroundTint="@color/colorGrisClaro"
+                        android:textAlignment="textStart"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txtNombreArticuloS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/lyt_bordesredondos"
+                        android:backgroundTint="@color/colorGrisClaro"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorGris"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btnShimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="29dp"
+                        android:layout_alignTop="@+id/txtFechaArticuloS"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="-7dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/lyt_bordesredondos"
+                        android:backgroundTint="@color/colorStatus"
+                        android:textColor="#FFFFFF" />
+
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

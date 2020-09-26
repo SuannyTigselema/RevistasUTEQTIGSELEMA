@@ -10,4 +10,6 @@
     <color name="color2">#98D4DC</color>
     <color name="color3">#CDCDCD</color>
     <color name="coloramarillo">#FFCB2E</color>
+    <color name="colorGris">#939393</color>
+    <color name="colorGrisClaro">#E8E8E8</color>
 </resources>
