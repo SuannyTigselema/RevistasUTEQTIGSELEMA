@@ -15,8 +15,11 @@ import android.widget.Toast;
 import com.example.revistasuteq.objetos.articulo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class activity_detalle_articulo extends AppCompatActivity {
@@ -43,7 +46,6 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 enviar_visualizador();
             }
         });
-
         //Preguntar si está suscrito o no
         //------------------------------------------------------------------------------------------------------
         imgResource = R.drawable.icon_suscrito;
@@ -55,11 +57,22 @@ public class activity_detalle_articulo extends AppCompatActivity {
         btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
         btnSuscribirse_Detalle.setText("Suscribirse");
         //------------------------------------------------------------------------------------------------------
-
-
         art_selec = (articulo) getIntent().getSerializableExtra("articulo");
         txtTitulo.setText(art_selec.getTitulo());
         doi=(art_selec.getDoi());
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(getString(R.string.usuario));
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                snapshot.child("Suscripciones").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         txtDOI.setText(art_selec.getDoi());
         txtResumen.setText(Html.fromHtml(art_selec.getResumen()));
 
@@ -111,6 +124,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 int imgResource = R.drawable.icon_suscrito;
+                //int imgResource = R.drawable.icon_no_suscrito_blanco;
                 btnSuscribirse_Detalle.getResources();
                 btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
                 btnSuscribirse_Detalle.setText("Suscrito");
