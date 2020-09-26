@@ -36,7 +36,13 @@ import com.example.revistasuteq.WebService.Asynchtask;
 import com.example.revistasuteq.WebService.WebService;
 import com.example.revistasuteq.adaptadores.adpRevista;
 import com.example.revistasuteq.objetos.revista;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -106,6 +112,24 @@ public class activityPrincipal extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+        //
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            //Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        Toast.makeText(activityPrincipal.this, token, Toast.LENGTH_SHORT).show();
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference(String.valueOf(R.string.usuario));
+                        myRef.child("Token").setValue(token);
+                    }
+                });
+        //
         revistaRcl=new RecyclerView(this);
         revistaRcl=(RecyclerView)findViewById(R.id.rclRevista);
         //añadir un Divider a los elementos de la lista->Diseño de la linea de separacion de los items
