@@ -131,7 +131,8 @@
                 android:layout_toEndOf="@+id/textView7"
                 android:text="https://doi.org/10.18779/csye.v1i1.247"
                 android:textColor="#3F51B5"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:justificationMode="inter_word"/>
 
             <TextView
                 android:id="@+id/txtpalabrasclaveAD"
@@ -158,7 +159,8 @@
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
                 android:text="Los Microcréditos como herramienta generadora de recursos contribuyen a mejorar la situación socioeconómica de sus familias. De manera preferencial estos, se conceden a grupos de mujeres de estratos sociales bajos y medios. El objetivo que se persigue es recibir de las instituciones financieras, microcréditos para mujeres emprendedoras que necesitan mejorar su calidad de vida y reducir la pobreza en Quevedo. Se aplicó encuestas a mujeres económicamente activas, con actividades micro-empresariales, para el tamaño de la muestra se empleó fórmula de población inferior a los 100.000. La actividad micro empresarial desarrollada por las mujeres en Quevedo está identificada por la comercialización de ropa con el 30%, seguido de la venta de víveres con 29.36%, comercialización de zapatos, entre las más importantes. En su actividad diaria comercial, el 50.42% ha recibido financiamiento de parte de la banca privada y el 34.35% de las mujeres han obtenido créditos con el Banco Nacional de Fomento. El 81.44% consideran que la calificación al interés que fijan las Instituciones financieras es aceptable. Los recursos financieros obtenidos de los Microcréditos es del 65% que son destinados a inversión en el negocio, mientras que el 35% es utilizado para pagos de gastos generales. Para el 66.48% de las mujeres de Quevedo, los microcréditos incidieron para el mejoramiento de la calidad de vida y el 33.52 contribuyeron a la reducción de la pobreza en cada hogar de las mujeres emprendedoras, impulsando el desarrollo socioeconómico de las familias del cantón."
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:justificationMode="inter_word"/>
         </RelativeLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

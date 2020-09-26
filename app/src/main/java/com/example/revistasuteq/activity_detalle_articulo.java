@@ -1,5 +1,6 @@
 package com.example.revistasuteq;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,10 +13,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.revistasuteq.objetos.articulo;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class activity_detalle_articulo extends AppCompatActivity {
     articulo art_selec;
     TextView txtTitulo, txtDOI, txtPalabrasClave, txtResumen, txtAutores;
+    String doi;
     Button btnVer, btnSuscribirse_Detalle;
     int imgResource;
     @Override
@@ -25,6 +32,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         btnSuscribirse_Detalle = findViewById(R.id.btnNotificar_Articulo_Detalle);
         txtTitulo = findViewById(R.id.txtTituloDA);
         txtDOI = findViewById(R.id.txtDoiAD);
+        doi=getString(R.id.txtDoiAD);
         txtAutores = findViewById(R.id.txtAutores);
         txtPalabrasClave = findViewById(R.id.txtpalabrasclaveAD);
         txtResumen = findViewById(R.id.txtResumenAD);
@@ -97,10 +105,23 @@ public class activity_detalle_articulo extends AppCompatActivity {
     public void suscribirse(View view)
     {
         //Si se suscribió cambiar ícono e imagen
-        int imgResource = R.drawable.icon_suscrito;
-        btnSuscribirse_Detalle.getResources();
-        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-        btnSuscribirse_Detalle.setText("Suscrito");
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+        FirebaseMessaging.getInstance().subscribeToTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                int imgResource = R.drawable.icon_suscrito;
+                btnSuscribirse_Detalle.getResources();
+                btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
+                btnSuscribirse_Detalle.setText("Suscrito");
+                Toast.makeText(activity_detalle_articulo.this, "Recibira notificaciones de este articulo", Toast.LENGTH_SHORT).show();
+                //se subscribio a topic general
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                DatabaseReference myRef = database.getReference(getString(R.string.usuario));
+                myRef.child("Suscripciones").setValue(doi);
+                //Toast.makeText(activity_detalle_articulo.this, "Se guardo en la bd como un articulo a recibir notificaciones", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
 //        //Si dejó de suscribirse utilizar esta imagen
 //        imgResource = R.drawable.icon_no_suscrito_blanco;
