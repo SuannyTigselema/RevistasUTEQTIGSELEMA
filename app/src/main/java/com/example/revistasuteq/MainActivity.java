@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -28,6 +29,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -89,11 +91,38 @@ public class MainActivity extends AppCompatActivity {
     }
     public void iniciar(String idioma)
     {
-
+        if(idioma.equals("es_ES")){
+            Locale localizacion = new Locale("en", "ES");
+            Locale.setDefault(localizacion);
+            Configuration config = new Configuration();
+            config.locale = localizacion;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+            Intent intent = new Intent(this, activityPrincipal.class);
+            intent.putExtra("local", idioma);
+            startActivity(intent);
+            this.finish();
+        }
+        if(idioma.equals("en_US")){
+         Locale localizacion = new Locale("en", "US");
+         Locale.setDefault(localizacion);
+         Configuration config = new Configuration();
+         config.locale = localizacion;
+         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
         Intent intent = new Intent(this, activityPrincipal.class);
         intent.putExtra("local", idioma);
-
         startActivity(intent);
         this.finish();
+        }
+        if(idioma.equals("pt_BR")){
+            Locale localizacion = new Locale("pt", "BR");
+            Locale.setDefault(localizacion);
+            Configuration config = new Configuration();
+            config.locale = localizacion;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+            Intent intent = new Intent(this, activityPrincipal.class);
+            intent.putExtra("local", idioma);
+            startActivity(intent);
+            this.finish();
+        }
     }
 }

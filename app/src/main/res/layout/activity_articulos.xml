@@ -27,16 +27,16 @@
                 style="@style/TextAppearance.AppCompat.Title"
                 android:text="Revista Ciencias Sociales y Económicas">
             </TextView>
+
             <TextView
+                style="@style/TextAppearance.AppCompat.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
-                android:layout_marginTop="1dp"
                 android:layout_marginStart="11dp"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:textSize="18dp"
+                android:layout_marginTop="1dp"
+                android:text="@string/CategoriasEdicion"
                 android:textColor="@color/coloramarillo"
-                android:text="Categorías:">
-            </TextView>
+                android:textSize="18dp"></TextView>
 
         </LinearLayout>
 

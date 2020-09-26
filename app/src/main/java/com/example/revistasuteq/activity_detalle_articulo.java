@@ -92,12 +92,12 @@ public class activity_detalle_articulo extends AppCompatActivity {
                         //int imgResource = R.drawable.icon_no_suscrito_blanco;
                         btnSuscribirse_Detalle.getResources();
                         btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-                        btnSuscribirse_Detalle.setText("Suscrito");
+                        btnSuscribirse_Detalle.setText(R.string.Suscripto);
                     } else {
                         imgResource = R.drawable.icon_no_suscrito_blanco;
                         btnSuscribirse_Detalle.getResources();
                         btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-                        btnSuscribirse_Detalle.setText("Suscribirse");
+                        btnSuscribirse_Detalle.setText(R.string.SuscribirseArticuloDetall);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
