@@ -245,6 +245,10 @@ public class activityPrincipal extends AppCompatActivity{
             Intent intent = new Intent(this, activity_suscripciones.class);
             startActivity(intent);
         }
+        if(id == R.id.btnCreditos) {
+            Intent intent = new Intent(this, activity_creditos.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }
