@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,13 +38,19 @@ public class adpArticulo extends RecyclerView.Adapter<adpArticulo.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.txtNombreArticulo.setText(arrayListMember.get(position).getTitulo());
         holder.txtFechaArticulo.setText(arrayListMember.get(position).getFecha_publicacion());
-     /*   ArrayList<String> arrayListMember=new ArrayList<>();
-        for (int i=1;i<=4;i++)
-        {
-            arrayListMember.add("Member"+i);
-        }
-        adpArticulo adapterMember=new adpArticulo(arrayListMember);
-        */
+
+        //Preguntar si está suscrito o no
+        //Si esta suscrito el tag es "noti_si"
+        //Si no lo está el tag es "noti_no"
+        //Se puede omitir el tag, xk lo usaba para el clic..
+        //---------------------------------------------------------------------
+        holder.icon_notificacion.setTag("noti_no");
+        //---------------------------------------------------------------------
+        if(holder.icon_notificacion.getTag().equals("noti_si"))
+            holder.icon_notificacion.setImageResource(R.drawable.icon_notificar_activo);
+        else
+            holder.icon_notificacion.setImageResource(R.drawable.icon_notificar_no);
+        //---------------------------------------------------------------------
     }
 
     @Override
@@ -66,10 +73,12 @@ public class adpArticulo extends RecyclerView.Adapter<adpArticulo.MyViewHolder> 
         int view_type;
         TextView txtNombreArticulo;
         TextView txtFechaArticulo;
+        ImageView icon_notificacion;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNombreArticulo=itemView.findViewById(R.id.txtnombreArticulo);
             txtFechaArticulo=itemView.findViewById(R.id.txtfechaArticulo);
+            icon_notificacion=itemView.findViewById(R.id.btnNotificar_Articulo);
         }
     }
 }

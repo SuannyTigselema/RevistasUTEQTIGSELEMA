@@ -36,6 +36,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
     Boolean ban;
     Button btnVer, btnSuscribirse_Detalle;
     int imgResource;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,41 +68,42 @@ public class activity_detalle_articulo extends AppCompatActivity {
         //------------------------------------------------------------------------------------------------------
         art_selec = (articulo) getIntent().getSerializableExtra("articulo");
         txtTitulo.setText(art_selec.getTitulo());
-        doi=(art_selec.getDoi());
+        art_selec.getPublicacion_id();
+        doi = (art_selec.getDoi());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(getString(R.string.usuario));
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String json=snapshot.child("Suscripciones").getValue().toString();
+                String json = snapshot.child("Suscripciones").getValue().toString();
                 List<String> sList = new ArrayList<String>();
                 try {
                     JSONObject jsonObject = new JSONObject(json);
-                    ban=false;
-                    for (int i =0;i<jsonObject.length();i++){
+                    ban = false;
+                    for (int i = 0; i < jsonObject.length(); i++) {
 
-                        if(doi.equals(jsonObject.get("doi").toString())){
-                            ban=true;
+                        if (doi.equals(jsonObject.get("doi").toString())) {
+                            ban = true;
                         }
                         //sList.add(jsonObject.get("doi").toString());
                     }
-                    if (ban){
+                    if (ban) {
                         int imgResource = R.drawable.icon_suscrito;
                         //int imgResource = R.drawable.icon_no_suscrito_blanco;
                         btnSuscribirse_Detalle.getResources();
                         btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
                         btnSuscribirse_Detalle.setText("Suscrito");
-                    }
-                    else {
-                             imgResource = R.drawable.icon_no_suscrito_blanco;
+                    } else {
+                        imgResource = R.drawable.icon_no_suscrito_blanco;
                         btnSuscribirse_Detalle.getResources();
-                         btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-                                    btnSuscribirse_Detalle.setText("Suscribirse");
+                        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
+                        btnSuscribirse_Detalle.setText("Suscribirse");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -150,9 +152,8 @@ public class activity_detalle_articulo extends AppCompatActivity {
         this.finish();
     }
 
-    public void suscribirse(View view)
-    {
-        if (ban){
+    public void suscribirse(View view) {
+        if (ban) {
             FirebaseMessaging.getInstance().setAutoInitEnabled(true);
             FirebaseMessaging.getInstance().unsubscribeFromTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -171,29 +172,28 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     }
                 }
             });
-        }
-        else {
-        //Si se suscribió cambiar ícono e imagen
-        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-        FirebaseMessaging.getInstance().subscribeToTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(activity_detalle_articulo.this, "Recibira notificaciones de este artículo", Toast.LENGTH_SHORT).show();
-                //se subscribio a topic general
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference(getString(R.string.usuario));
-                JSONObject object = new JSONObject();
-                try {
-                    object.put("doi", doi);
-                    myRef.child("Suscripciones").setValue(object.toString());
-                    //guardado en la bd
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        } else {
+            //Si se suscribió cambiar ícono e imagen
+            FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+            FirebaseMessaging.getInstance().subscribeToTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Toast.makeText(activity_detalle_articulo.this, "Recibira notificaciones de este artículo", Toast.LENGTH_SHORT).show();
+                    //se subscribio a topic general
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference(getString(R.string.usuario));
+                    JSONObject object = new JSONObject();
+                    try {
+                        object.put("doi", doi);
+                        myRef.child("Suscripciones").setValue(object.toString());
+                        //guardado en la bd
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    //items.stream().collect(Collectors.toMap(Item::getValue, Item::getType));
+                    //Toast.makeText(activity_detalle_articulo.this, "Se guardo en la bd como un articulo a recibir notificaciones", Toast.LENGTH_SHORT).show();
                 }
-                //items.stream().collect(Collectors.toMap(Item::getValue, Item::getType));
-                //Toast.makeText(activity_detalle_articulo.this, "Se guardo en la bd como un articulo a recibir notificaciones", Toast.LENGTH_SHORT).show();
-            }
-        });
+            });
 
 
 //        //Si dejó de suscribirse utilizar esta imagen
@@ -201,5 +201,6 @@ public class activity_detalle_articulo extends AppCompatActivity {
 //        btnSuscribirse_Detalle.getResources();
 //        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
 //        btnSuscribirse_Detalle.setText("Suscribirse");
-    }}
+        }
+    }
 }
