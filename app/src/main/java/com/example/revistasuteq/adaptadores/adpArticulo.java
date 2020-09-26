@@ -21,7 +21,6 @@ public class adpArticulo extends RecyclerView.Adapter<adpArticulo.MyViewHolder> 
     private View.OnClickListener listener;
     adpArticulo( ArrayList<articulo> arrayListMember)
     {
-
         this.arrayListMember=arrayListMember;
     }
 

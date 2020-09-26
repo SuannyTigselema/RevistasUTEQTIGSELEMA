@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -30,15 +31,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".activity_detalle_articulo">
-            <TextView
-                android:id="@+id/txtAutores"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView6"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp" />
+                android:id="@+id/cons"
+                android:layout_below="@+id/textView6">
 
+                <TextView
+                    android:id="@+id/txtAutores"
+                    android:layout_width="239dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="11dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnNotificar_Articulo_Detalle"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnNotificar_Articulo_Detalle"
+                    android:layout_width="132dp"
+                    android:layout_height="38dp"
+                    android:layout_marginEnd="16dp"
+
+                    android:background="@drawable/bordes_redondos3"
+                    android:backgroundTint="#166E2D"
+                    android:drawableLeft="@drawable/icon_notificar_si_blanco"
+                    android:elevation="2dp"
+                    android:onClick="suscribirse"
+                    android:paddingLeft="10dp"
+                    android:tag="noti_no"
+                    android:text="Suscribirse"
+                    android:textColor="#F1E2E2"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.659"
+                    app:layout_constraintStart_toEndOf="@+id/txtfechaArticulo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:tint="#D1D6D2" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
@@ -54,7 +89,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtAutores"
+                android:layout_below="@+id/cons"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="15dp"
@@ -90,7 +125,7 @@
                 android:id="@+id/txtDoiAD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtAutores"
+                android:layout_below="@+id/cons"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="15dp"
                 android:layout_toEndOf="@+id/textView7"
@@ -126,7 +161,7 @@
                 android:textSize="14sp" />
         </RelativeLayout>
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="228dp"
             android:textAlignment="center"
@@ -138,19 +173,18 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="102dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="37dp"
-                android:layout_marginRight="10dp"
                 android:background="@drawable/bordes_redondos3"
                 android:text="VER ARTÍCULO"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="16dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
