@@ -125,7 +125,7 @@ public class activityPrincipal extends AppCompatActivity{
                         String token = task.getResult().getToken();
                         Toast.makeText(activityPrincipal.this, token, Toast.LENGTH_SHORT).show();
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = database.getReference("Xavier");
+                        DatabaseReference myRef = database.getReference(String.valueOf(R.string.usuario));
                         myRef.child("Token").setValue(token);
                     }
                 });
