@@ -61,10 +61,8 @@ public class adpEdicionR extends RecyclerView.Adapter<adpEdicionR.MyViewHolder>
     @NonNull
     @Override
     public adpEdicionR.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-        view= LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.itemediciones,null,false);
-        
+        LayoutInflater inflr = LayoutInflater.from(mContext);
+        View view=inflr.inflate(R.layout.itemediciones,null,false);
         view.setOnClickListener(this);
         return new MyViewHolder(view);
     }
