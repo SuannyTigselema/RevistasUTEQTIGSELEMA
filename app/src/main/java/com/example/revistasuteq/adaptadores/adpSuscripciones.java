@@ -4,7 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,12 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.revistasuteq.R;
 import com.example.revistasuteq.modelos.Articulo;
 import com.facebook.shimmer.ShimmerFrameLayout;
+
 import java.util.List;
 
 public class adpSuscripciones extends RecyclerView.Adapter<adpSuscripciones.ViewHolder> implements View.OnClickListener {
 
     private List<Articulo> datos;
-    public adpSuscripciones(List<Articulo> datos){this.datos = datos;}
+
+    public adpSuscripciones(List<Articulo> datos) {
+        this.datos = datos;
+    }
 
     public static boolean showShimmer = true;
     int cantShimmer = 5;
@@ -28,7 +35,7 @@ public class adpSuscripciones extends RecyclerView.Adapter<adpSuscripciones.View
     @Override
     public adpSuscripciones.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = null;
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lyt_shimmer,null,false);
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lyt_shimmer, null, false);
 
         view.setOnClickListener(this);
         return new ViewHolder(view);
@@ -37,12 +44,9 @@ public class adpSuscripciones extends RecyclerView.Adapter<adpSuscripciones.View
     @Override
     public void onBindViewHolder(@NonNull adpSuscripciones.ViewHolder holder, int position) {
         try {
-            if(showShimmer)
-            {
+            if (showShimmer) {
                 holder.shimmerFrameLayout.startShimmer();
-            }
-            else
-                {
+            } else {
                 holder.shimmerFrameLayout.stopShimmer();
                 holder.shimmerFrameLayout.setShimmer(null);
 
@@ -50,20 +54,25 @@ public class adpSuscripciones extends RecyclerView.Adapter<adpSuscripciones.View
                 holder.txtFechaArticulo.setBackground(null);
 
                 holder.asignar_datos(datos.get(position));
+
+                holder.setOnClickListeners();
                 //holder.txtNombreplatillo.startAnimation((Animation) AnimationUtils.loadAnimation(getAppl,R.anim.scroll_animation));
             }
             //holder.asignar_datos(datos.get(position));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
     @Override
     public int getItemCount() {
-        try{
-        return showShimmer ? cantShimmer : datos.size();}catch (Exception e) {return cantShimmer;}
+        try {
+            return showShimmer ? cantShimmer : datos.size();
+        } catch (Exception e) {
+            return cantShimmer;
+        }
     }
+
     public void setOnClickListener(View.OnClickListener listener) {
         this.listener = listener;
     }
@@ -75,12 +84,12 @@ public class adpSuscripciones extends RecyclerView.Adapter<adpSuscripciones.View
         }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ShimmerFrameLayout shimmerFrameLayout;
         TextView txtNombreArticulo, txtFechaArticulo;
         Button btnShimmer;
-
+        ImageView notifi;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,6 +97,7 @@ public class adpSuscripciones extends RecyclerView.Adapter<adpSuscripciones.View
             txtNombreArticulo = (TextView) itemView.findViewById(R.id.txtNombreArticuloS);
             txtFechaArticulo = (TextView) itemView.findViewById(R.id.txtFechaArticuloS);
             btnShimmer = itemView.findViewById(R.id.btnShimmer);
+            notifi=itemView.findViewById(R.id.notificacion_mis_suscripciones);
         }
 
         public void asignar_datos(Articulo valor) {
@@ -95,7 +105,14 @@ public class adpSuscripciones extends RecyclerView.Adapter<adpSuscripciones.View
             txtFechaArticulo.setText(valor.getFecha());
             btnShimmer.setText("VER");
         }
+        public void setOnClickListeners() {
+            notifi.setOnClickListener(this);
+        }
 
-
+        @Override
+        public void onClick(View view) {
+            //Evento al dar clic al ícono de notificación
+            Toast.makeText(view.getContext(), "Selección " + datos.get(getAdapterPosition()).getNombre(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
