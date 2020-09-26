@@ -153,17 +153,24 @@ public class activity_detalle_articulo extends AppCompatActivity {
     public void suscribirse(View view)
     {
         if (ban){
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference(getString(R.string.usuario));
-            JSONObject object = new JSONObject();
-            try {
-                object.put("doi", "Nul");
-                myRef.child("Suscripciones").setValue(object.toString());
-                Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
-                //guardado en la bd
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Toast.makeText(activity_detalle_articulo.this, "Ya no recibira notificaciones de este artículo", Toast.LENGTH_SHORT).show();
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference(getString(R.string.usuario));
+                    JSONObject object = new JSONObject();
+                    try {
+                        object.put("doi", "Nul");
+                        myRef.child("Suscripciones").setValue(object.toString());
+                        Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
+                        //guardado en la bd
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         }
         else {
         //Si se suscribió cambiar ícono e imagen
@@ -171,18 +178,14 @@ public class activity_detalle_articulo extends AppCompatActivity {
         FirebaseMessaging.getInstance().subscribeToTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-
                 Toast.makeText(activity_detalle_articulo.this, "Recibira notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                 //se subscribio a topic general
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                 JSONObject object = new JSONObject();
-
                 try {
-
                     object.put("doi", doi);
                     myRef.child("Suscripciones").setValue(object.toString());
-
                     //guardado en la bd
                 } catch (JSONException e) {
                     e.printStackTrace();
