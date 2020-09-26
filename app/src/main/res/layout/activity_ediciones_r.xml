@@ -6,91 +6,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".edicionesR">
-
-    <View
-        android:id="@+id/viewEdiCab"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:background="@color/colorGreen"></View>
-
-
-
-
-
-
-
-    <RelativeLayout
-        android:id="@+id/rrr1"
-        android:layout_width="match_parent"
-        android:layout_height="180dp">
-
-        <TextView
-            android:id="@+id/txtEdiTituloCab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Universidad Técnica Estatal de Quevedo"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            android:textStyle="bold|italic" />
-
-        <ImageView
-            android:id="@+id/imgEdilogo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_above="@+id/imgEdilogo2"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="0dp"
-            app:srcCompat="@drawable/escudouteq" />
-
-        <ImageView
-            android:id="@+id/imgEdilogo2"
-            android:layout_width="90dp"
-            android:layout_height="70dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            app:srcCompat="@drawable/uteqblanco" />
-
-        <TextView
-            android:id="@+id/txtEdiAbreCab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txtEdiTituloCab"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:text="Ediciones: "
-            android:textColor="@color/coloramarillo"
-            android:textSize="24sp"
-            android:textStyle="bold|italic" />
-    </RelativeLayout>
-
-
-
-
-        <RelativeLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/rrr1">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rclEdiEdicion"
-                android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorStatus">
+            <TextView
+                android:id="@+id/txtEdiTituloCab"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_centerInParent="true"
+                android:layout_above="@+id/txtEdiAbreCab"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:textColor="#ffff"
+                android:text="Universidad Técnica Estatal de Quevedo"
+                android:textSize="20sp"
+                android:textStyle="bold|italic" />
 
-                />
+            <TextView
+                android:id="@+id/txtEdiAbreCab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp"
+                android:text="Ediciones: "
+                android:textColor="@color/coloramarillo"
+                android:textSize="18sp"
+                android:textStyle="bold|italic" />
+        </LinearLayout>
 
-        </RelativeLayout>
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rclEdiEdicion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
 
 
 
