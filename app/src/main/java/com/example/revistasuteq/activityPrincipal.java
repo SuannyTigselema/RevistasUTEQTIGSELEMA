@@ -43,6 +43,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -129,6 +130,13 @@ public class activityPrincipal extends AppCompatActivity{
                         myRef.child("Token").setValue(token);
                     }
                 });
+        FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+        FirebaseMessaging.getInstance().subscribeToTopic("general").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                //se subscribio a topic general
+            }
+        });
         //
         revistaRcl=new RecyclerView(this);
         revistaRcl=(RecyclerView)findViewById(R.id.rclRevista);
