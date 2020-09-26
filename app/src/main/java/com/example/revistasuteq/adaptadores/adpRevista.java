@@ -81,7 +81,8 @@ public class adpRevista extends RecyclerView.Adapter<adpRevista.MyViewHolder>
         view.setOnClickListener(this);
         return new MyViewHolder(view);
     }
-    public void setOnClickListener(View.OnClickListener listener){
+    public void setOnClickListener(View.OnClickListener listener)
+    {
         this.listener=listener;
     }
 
