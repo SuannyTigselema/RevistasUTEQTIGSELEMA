@@ -22,6 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class activity_detalle_articulo extends AppCompatActivity {
     articulo art_selec;
     TextView txtTitulo, txtDOI, txtPalabrasClave, txtResumen, txtAutores;
@@ -65,9 +68,8 @@ public class activity_detalle_articulo extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                snapshot.child("Suscripciones").getValue().toString();
+                String json=snapshot.child("Suscripciones").getValue().toString();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -132,7 +134,16 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 //se subscribio a topic general
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference(getString(R.string.usuario));
-                myRef.child("Suscripciones").setValue(doi);
+                JSONObject object = new JSONObject();
+                try {
+                    object.put("doi", doi);
+                    myRef.child("Suscripciones").setValue(object.toString());
+                    //guardado en la bd
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                        //items.stream().collect(Collectors.toMap(Item::getValue, Item::getType));
+
                 //Toast.makeText(activity_detalle_articulo.this, "Se guardo en la bd como un articulo a recibir notificaciones", Toast.LENGTH_SHORT).show();
             }
         });
