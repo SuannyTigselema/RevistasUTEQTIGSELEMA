@@ -32,7 +32,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         btnSuscribirse_Detalle = findViewById(R.id.btnNotificar_Articulo_Detalle);
         txtTitulo = findViewById(R.id.txtTituloDA);
         txtDOI = findViewById(R.id.txtDoiAD);
-        doi=getString(R.id.txtDoiAD);
+
         txtAutores = findViewById(R.id.txtAutores);
         txtPalabrasClave = findViewById(R.id.txtpalabrasclaveAD);
         txtResumen = findViewById(R.id.txtResumenAD);
@@ -59,6 +59,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
 
         art_selec = (articulo) getIntent().getSerializableExtra("articulo");
         txtTitulo.setText(art_selec.getTitulo());
+        doi=(art_selec.getDoi());
         txtDOI.setText(art_selec.getDoi());
         txtResumen.setText(Html.fromHtml(art_selec.getResumen()));
 
