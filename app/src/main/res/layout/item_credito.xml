@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/colorGrisClaro">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/trjShimmer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="3dp"
+                android:padding="10dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/imageViewliAu"
+                        android:layout_width="20dp"
+                        android:layout_height="21dp"
+                        android:layout_marginEnd="4dp"
+                        android:tint="@color/colorStatus"
+                        app:layout_constraintEnd_toStartOf="@+id/txtNombreArticuloS"
+                        app:layout_constraintTop_toTopOf="@+id/txtNombreArticuloS"
+                        app:srcCompat="@drawable/radio_button_unchecked_24" />
+
+                    <TextView
+                        android:id="@+id/txtNombreAutor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/lyt_bordesredondos"
+                        android:backgroundTint="@color/colorGrisClaro"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/colorGris"
+                        android:textStyle="normal" />
+
+
+
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

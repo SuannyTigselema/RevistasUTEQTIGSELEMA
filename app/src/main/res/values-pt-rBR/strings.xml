@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Revistas UTEQ</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="usuario" translatable="false">Angel</string>
+    <string name="creditos_titulo" translatable="false">Créditos</string>
+    <string name="creditos_ED" translatable="false">EQUIPE DE DESENVOLVIMIENTO</string>
+    <string name="creditos_Final" translatable="false">Projeto que fazia parte da disciplina Programação Orientada a Objetos para dispositivos móveis PPA 2020-2021 com o professor Cristian Zambrano Vega</string>
+    <string name="TituloEdicion" translatable="false">Revista de Ciências Sociais e Econômicas</string>
+    <string name="EdicionesEdicion" translatable="false">Edições: </string>
+    <string name="CategoriasEdicion" translatable="false">Categorias: </string>
+    <string name="AutoresArticuloDetall" translatable="false">Autores: </string>
+    <string name="PalabrasArticuloDetall" translatable="false">Palavras chaves: </string>
+    <string name="ResumenArticuloDetall" translatable="false">Resumo: </string>
+    <string name="SuscribirseArticuloDetall" translatable="false">subscrever</string>
+    <string name="VerArticuloDetall" translatable="false">VER ARTIGO</string>
+    <string name="Suscripciones" translatable="false">Minhas assinaturas</string>
+    <string name="Suscripto" translatable="false">Subscrito</string>
+</resources>

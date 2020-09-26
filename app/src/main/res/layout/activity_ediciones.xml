@@ -10,25 +10,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <TextView
         android:id="@+id/txtTituloRevistaE"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="11dp"
-        style="@style/TextAppearance.AppCompat.Title"
-        android:text="Revista Ciencias Sociales y Económicas">
-    </TextView>
+        android:layout_marginTop="10dp"
+        android:inputType="textMultiLine"
+        android:text="@string/TituloEdicion"></TextView>
+
     <TextView
+        style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:layout_marginTop="1dp"
         android:layout_marginStart="11dp"
-        style="@style/TextAppearance.AppCompat.Medium"
-        android:textSize="18dp"
-        android:text="Ediciones:">
-    </TextView>
+        android:layout_marginTop="1dp"
+        android:text="@string/EdicionesEdicion"
+        android:textSize="18dp"></TextView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rclEdicion"
         android:layout_marginTop="10dp"

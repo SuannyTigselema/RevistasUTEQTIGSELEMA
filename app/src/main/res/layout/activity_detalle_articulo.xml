@@ -62,7 +62,7 @@
                     android:onClick="suscribirse"
                     android:paddingLeft="10dp"
                     android:tag="noti_no"
-                    android:text="Suscribirse"
+                    android:text="@string/SuscribirseArticuloDetall"
                     android:textColor="#F1E2E2"
                     android:textSize="12sp"
                     android:textStyle="bold"
@@ -74,6 +74,7 @@
                     app:layout_constraintVertical_bias="0.0"
                     app:tint="#D1D6D2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
@@ -81,8 +82,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="10dp"
+                android:text="@string/AutoresArticuloDetall"
                 android:textColor="#000000"
-                android:text="Autores:"
                 android:textStyle="bold" />
 
             <TextView
@@ -105,7 +106,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="15dp"
-                android:text="Palabras clave:"
+                android:text="@string/PalabrasArticuloDetall"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
@@ -117,7 +118,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="15dp"
-                android:text="Resumen:"
+                android:text="@string/ResumenArticuloDetall"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
@@ -176,7 +177,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/bordes_redondos3"
-                android:text="VER ARTÍCULO"
+                android:text="@string/VerArticuloDetall"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="16dp"
