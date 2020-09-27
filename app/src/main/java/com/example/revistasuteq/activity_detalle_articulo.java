@@ -68,8 +68,8 @@ public class activity_detalle_articulo extends AppCompatActivity {
         //------------------------------------------------------------------------------------------------------
         art_selec = (articulo) getIntent().getSerializableExtra("articulo");
         txtTitulo.setText(art_selec.getTitulo());
-        art_selec.getPublicacion_id();
-        doi = (art_selec.getDoi());
+        //art_selec.getPublicacion_id();
+        doi = (art_selec.getPublicacion_id());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(getString(R.string.usuario));
         myRef.addValueEventListener(new ValueEventListener() {
@@ -77,12 +77,13 @@ public class activity_detalle_articulo extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String json = snapshot.child("Suscripciones").getValue().toString();
                 List<String> sList = new ArrayList<String>();
+                String id= art_selec.getPublicacion_id();
                 try {
                     JSONObject jsonObject = new JSONObject(json);
                     ban = false;
                     for (int i = 0; i < jsonObject.length(); i++) {
 
-                        if (doi.equals(jsonObject.get("doi").toString())) {
+                        if (id.equals(jsonObject.get("doi").toString())) {
                             ban = true;
                         }
                         //sList.add(jsonObject.get("doi").toString());
@@ -161,10 +162,13 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     Toast.makeText(activity_detalle_articulo.this, "Ya no recibira notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
-                    JSONObject object = new JSONObject();
+                    JSONArray array = new JSONArray();
                     try {
-                        object.put("doi", "Nul");
-                        myRef.child("Suscripciones").setValue(object.toString());
+                        JSONObject object = new JSONObject("Articulo");
+                        object.put("id", art_selec.getPublicacion_id());
+                        object.put("id", art_selec.getFecha_publicacion());
+                        array.put(object);
+                        myRef.child("Suscripciones").setValue(array.toString());
                         Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                         //guardado en la bd
                     } catch (JSONException e) {
