@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                         {
                              mensaje.setText("Welcome to our mobile portal of scientific journals");
                              seleccionar.setText("Select a language to display");
-                            ingresar.setText("ENTEROKAY");
+                            ingresar.setText("ENTER");
                         }
                         else
                         {
