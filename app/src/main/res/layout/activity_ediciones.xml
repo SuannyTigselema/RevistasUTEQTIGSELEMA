@@ -5,37 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activityPrincipal">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/txtTituloRevistaE"
-        style="@style/TextAppearance.AppCompat.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="10dp"
-        android:inputType="textMultiLine"
-        android:text="@string/TituloEdicion"></TextView>
-
-    <TextView
-        style="@style/TextAppearance.AppCompat.Medium"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="1dp"
-        android:text="@string/EdicionesEdicion"
-        android:textSize="18dp"></TextView>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rclEdicion"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
+        android:orientation="vertical">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:id="@+id/txtTituloRevistaE"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="10dp"
+            android:inputType="textMultiLine"
+            android:text="@string/TituloEdicion"></TextView>
 
-</LinearLayout>
+        <TextView
+            style="@style/TextAppearance.AppCompat.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="1dp"
+            android:text="@string/EdicionesEdicion"
+            android:textSize="18dp"></TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rclEdicion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
     </RelativeLayout>

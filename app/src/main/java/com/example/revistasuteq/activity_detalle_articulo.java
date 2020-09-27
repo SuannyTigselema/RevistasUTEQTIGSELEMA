@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -50,6 +52,9 @@ public class activity_detalle_articulo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_articulo);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#176803"));
+        }
         btnSuscribirse_Detalle = findViewById(R.id.btnNotificar_Articulo_Detalle);
         txtTitulo = findViewById(R.id.txtTituloDA);
         txtDOI = findViewById(R.id.txtDoiAD);
