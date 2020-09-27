@@ -148,7 +148,8 @@ public class activity_suscripciones extends AppCompatActivity {
             startActivity(intent);
         }
         if(id == R.id.btnIdioma) {
-            //Invocar algo para el idioma
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
