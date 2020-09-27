@@ -150,7 +150,6 @@ public class adpCategoria extends RecyclerView.Adapter<adpCategoria.MyViewHolder
                                 }
                                 rev.setLstGaleys(arrayListGaleys);
                                 autores aut;
-
                                 for (int j=0;j<obj.getJSONArray("authors").length();j++)
                                 {
                                     aut=new autores();

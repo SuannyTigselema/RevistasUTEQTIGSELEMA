@@ -61,7 +61,6 @@ public class activity_suscripciones extends AppCompatActivity {
         rclSuscripciones.setLayoutManager(linear);
         rclSuscripciones.hasFixedSize();
         adpSuscripciones.showShimmer = true;
-
         List<Articulo> lista = new ArrayList<Articulo>();
         final adpSuscripciones adpSuscripciones = new adpSuscripciones(lista);
         rclSuscripciones.setAdapter(adpSuscripciones);

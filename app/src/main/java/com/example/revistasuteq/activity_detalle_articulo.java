@@ -114,6 +114,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }catch (Exception e){
+
                 }
                 if (ban) {
                     int imgResource = R.drawable.icon_suscrito;
@@ -171,7 +172,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
     }
 
     private void enviar_visualizador(String url) {
-        // Notificar();
+        Notificar();
         //   Toast.makeText(activity_detalle_articulo.this, mostrarDialogOpciones(), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, activity_visualizador.class);
         intent.putExtra("url", url);
@@ -296,6 +297,16 @@ public class activity_detalle_articulo extends AppCompatActivity {
                         Articulo.put("id", art_selec.getPublicacion_id());
                         Articulo.put("fecha", art_selec.getFecha_publicacion());
                         Articulo.put("tittle", art_selec.getTitulo());
+                        Articulo.put("dateP", art_selec.getDate_published());
+                        Articulo.put("doi", art_selec.getDoi());
+                        //Articulo.put("autores", art_selec.getLstAutores());
+                        //Articulo.put("galeys", art_selec.getLstGaleys());
+                        //Articulo.put("keywords", art_selec.getLstKeywordss());
+                        Articulo.put("resume", art_selec.getResumen());
+                        Articulo.put("seccion", art_selec.getSeccion());
+                        Articulo.put("seccionid", art_selec.getSection_id());
+                        Articulo.put("submissionid", art_selec.getSubmission_id());
+                        Articulo.put("seq", art_selec.getSeq());
                         //array.put(Articulo);
                         jsonArray.put(Articulo);
                         myRef.child("Suscripciones").setValue(jsonArray.toString());
