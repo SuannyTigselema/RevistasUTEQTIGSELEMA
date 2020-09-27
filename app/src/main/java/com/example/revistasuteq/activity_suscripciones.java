@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +19,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.revistasuteq.adaptadores.adpSuscripciones;
+import com.example.revistasuteq.certificaciones.SelfSigningClientBuilder;
+import com.example.revistasuteq.interfaces.itfRetrofit;
 import com.example.revistasuteq.modelos.Articulo;
+import com.example.revistasuteq.objetos.articulo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +35,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class activity_suscripciones extends AppCompatActivity {
 
@@ -82,11 +92,13 @@ public class activity_suscripciones extends AppCompatActivity {
                         jsonArray = new JSONArray(json);
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject= jsonArray.getJSONObject(i);
-                            String id, tittle, fecha;
+                            String id, tittle, fecha, seccion, seccionid;
                             id=jsonObject.get("id").toString();
                             fecha=jsonObject.get("fecha").toString();
                             tittle=jsonObject.get("tittle").toString();
-                            finalLista.add(new Articulo(tittle,fecha,id));
+                            seccion=jsonObject.get("seccion").toString();
+                            seccionid=jsonObject.get("seccionid").toString();
+                            finalLista.add(new Articulo(tittle,fecha,id, seccion, seccionid));
                             //sList.add(jsonObject.get("doi").toString());
                         }
 
@@ -122,10 +134,35 @@ public class activity_suscripciones extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         int posicion = rclSuscripciones.getChildAdapterPosition(view);
+                        /*SharedPreferences prefe = getSharedPreferences("MyPREFERENCES", MODE_PRIVATE);
+                        String idioma = prefe.getString("Idioma", "es_ES");
+                        Retrofit rf = new Retrofit.Builder()
+                                .baseUrl("https://revistas.uteq.edu.ec/")
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .client(SelfSigningClientBuilder.createClient(getApplicationContext()))
+                                .build();
+                        itfRetrofit retrofit_interfaz = rf.create(itfRetrofit.class);
+
+                        String url = "https://revistas.uteq.edu.ec/ws/pubs.php?i_id="+finalLista.get(posicion).getId()+"&section="+finalLista.get(posicion).getSeccionid()+"&locale="+idioma;
+                        Call<articulo> call = retrofit_interfaz.getArticulo(url);
+                        call.enqueue(new Callback<articulo>() {
+                            @Override
+                            public void onResponse(Call<articulo> call, Response<articulo> response) {
+                                //Codigo de respuesta a la petición realizada
+                                String cod_respuesta = "Código " + response.code();
+                                //Definiendo donde se guardaran los valores obtenidos
+                                articulo respuesta = response.body();
+                                Toast.makeText(getApplicationContext(), Integer.toString(posicion),Toast.LENGTH_LONG).show();
+                            }
+                            @Override
+                            public void onFailure(Call<articulo> call, Throwable t) {
+                                Toast.makeText(getApplicationContext(), "No se ha podido establecer conexión con el servidor"+t.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        });
                         /*Intent intent = new Intent(act.getApplicationContext(), activity_detalle_articulo.class);
                         intent.putExtra("articulo", finalLista.get(posicion).getId());
-                        startActivity(intent);*/
-                        //Toast.makeText(getApplicationContext(), Integer.toString(posicion),Toast.LENGTH_LONG).show();
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(), Integer.toString(posicion),Toast.LENGTH_LONG).show();*/
                     }
                 });
             }
