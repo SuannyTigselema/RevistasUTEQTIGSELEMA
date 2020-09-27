@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
         //En caso de que quieran hacer con el bton
         String[] idiomas = {"Español","English"};
-        Slenguajes.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,idiomas));
+        Slenguajes.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.lyt_spinneritem,idiomas));
         Slenguajes.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     @Override
