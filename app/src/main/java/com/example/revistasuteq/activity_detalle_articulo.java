@@ -16,6 +16,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.revistasuteq.objetos.articulo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -154,6 +155,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        requestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
     }
 
     private void enviar_visualizador() {
@@ -243,6 +245,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
                         JSONObject Articulo = new JSONObject();
                         Articulo.put("id", art_selec.getPublicacion_id());
                         Articulo.put("fecha", art_selec.getFecha_publicacion());
+                        Articulo.put("titulo", art_selec.getTitulo());
                         //array.put(Articulo);
                         jsonArray.put(Articulo);
                         myRef.child("Suscripciones").setValue(jsonArray.toString());
