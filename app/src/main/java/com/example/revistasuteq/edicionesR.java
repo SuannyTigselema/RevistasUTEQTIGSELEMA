@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -82,6 +85,9 @@ public class edicionesR extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ediciones_r);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#176803"));
+        }
 
         Bundle b = this.getIntent().getExtras();
         revista rev_selec = (revista) getIntent().getSerializableExtra("revista");
@@ -98,7 +104,9 @@ public class edicionesR extends AppCompatActivity {
         progress=new ProgressDialog(this);
         progress.setMessage("Consultando...");
         progress.show();
-        String url="https://revistas.uteq.edu.ec/ws/issues.php?j_id="+rev_selec.getJournal_id()+"";
+        SharedPreferences prefe = this.getSharedPreferences("MyPREFERENCES", MODE_PRIVATE);
+        String idioma = prefe.getString("Idioma", "es_ES");
+        String url="https://revistas.uteq.edu.ec/ws/issues.php?j_id="+rev_selec.getJournal_id()+"&locale="+idioma;
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonArrayRequest jobReq = new JsonArrayRequest(Request.Method.GET, url,
                 new Response.Listener<JSONArray>() {

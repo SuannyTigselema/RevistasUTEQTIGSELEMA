@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -12,6 +14,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.revistasuteq.objetos.articulo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,7 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class activity_detalle_articulo extends AppCompatActivity {
     articulo art_selec;
@@ -36,11 +45,16 @@ public class activity_detalle_articulo extends AppCompatActivity {
     Boolean ban;
     Button btnVer, btnSuscribirse_Detalle;
     int imgResource;
+    RequestQueue requestQueue;
+    JSONArray jsonArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_articulo);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#176803"));
+        }
         btnSuscribirse_Detalle = findViewById(R.id.btnNotificar_Articulo_Detalle);
         txtTitulo = findViewById(R.id.txtTituloDA);
         txtDOI = findViewById(R.id.txtDoiAD);
@@ -68,39 +82,43 @@ public class activity_detalle_articulo extends AppCompatActivity {
         //------------------------------------------------------------------------------------------------------
         art_selec = (articulo) getIntent().getSerializableExtra("articulo");
         txtTitulo.setText(art_selec.getTitulo());
-        art_selec.getPublicacion_id();
-        doi = (art_selec.getDoi());
+        //art_selec.getPublicacion_id();
+        doi = (art_selec.getPublicacion_id());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(getString(R.string.usuario));
+        jsonArray= new JSONArray();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String json = snapshot.child("Suscripciones").getValue().toString();
-                List<String> sList = new ArrayList<String>();
+                ban = false;
                 try {
-                    JSONObject jsonObject = new JSONObject(json);
-                    ban = false;
-                    for (int i = 0; i < jsonObject.length(); i++) {
-
-                        if (doi.equals(jsonObject.get("doi").toString())) {
-                            ban = true;
+                    String json = snapshot.child("Suscripciones").getValue().toString();
+                    try {
+                        String id= art_selec.getPublicacion_id();
+                        jsonArray = new JSONArray(json);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject= jsonArray.getJSONObject(i);
+                            if (id.equals(jsonObject.get("id").toString())) {
+                                ban = true;
+                            }
+                            //sList.add(jsonObject.get("doi").toString());
                         }
-                        //sList.add(jsonObject.get("doi").toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    if (ban) {
-                        int imgResource = R.drawable.icon_suscrito;
-                        //int imgResource = R.drawable.icon_no_suscrito_blanco;
-                        btnSuscribirse_Detalle.getResources();
-                        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-                        btnSuscribirse_Detalle.setText(R.string.Suscripto);
-                    } else {
-                        imgResource = R.drawable.icon_no_suscrito_blanco;
-                        btnSuscribirse_Detalle.getResources();
-                        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-                        btnSuscribirse_Detalle.setText(R.string.SuscribirseArticuloDetall);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                }catch (Exception e){
+                }
+                if (ban) {
+                    int imgResource = R.drawable.icon_suscrito;
+                    //int imgResource = R.drawable.icon_no_suscrito_blanco;
+                    btnSuscribirse_Detalle.getResources();
+                    btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
+                    btnSuscribirse_Detalle.setText(R.string.Suscripto);
+                } else {
+                    imgResource = R.drawable.icon_no_suscrito_blanco;
+                    btnSuscribirse_Detalle.getResources();
+                    btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
+                    btnSuscribirse_Detalle.setText(R.string.SuscribirseArticuloDetall);
                 }
             }
 
@@ -142,9 +160,11 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        requestQueue= Volley.newRequestQueue(getApplicationContext());
     }
 
     private void enviar_visualizador() {
+        Notificar();
         Intent intent = new Intent(this, activity_visualizador.class);
         intent.putExtra("articulo", art_selec);
 
@@ -152,19 +172,62 @@ public class activity_detalle_articulo extends AppCompatActivity {
         this.finish();
     }
 
+    public void Notificar(){
+        try {
+            JSONObject jsonObject=new JSONObject();
+            String topic=art_selec.getPublicacion_id();
+            jsonObject.put( "to","/topics/"+topic);
+            JSONObject notificacion = new JSONObject();
+            notificacion.put("titulo","Estan leyenendo el articulo "+ art_selec.getTitulo());
+            notificacion.put("detalle","El usuario "+ getString(R.string.usuario));
+            jsonObject.put("data",notificacion);
+            String URL="https://fcm.googleapis.com/fcm/send";
+            JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(Request.Method.POST,URL,jsonObject,null,null){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String,String> header= new HashMap<>();
+                    header.put("content-type","application/json");
+                    header.put("authorization","key=AAAAAjKaNiM:APA91bF36kAxkwzCp4m54YHXKQoV5d9Wi8vGNHXtHsvn1ESuIoHBvPAwOhra0-YCE36tnREriY6rIGxorsv6SqxWGHZZ9lAkuj5dC0Mwkdks_4H32Ti1pGUIZXXlm-WwcFGcHYqkotRO");
+                    return  header;
+                }
+            };
+            requestQueue.add(jsonObjectRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void suscribirse(View view) {
         if (ban) {
             FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(art_selec.getPublicacion_id()).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(activity_detalle_articulo.this, "Ya no recibira notificaciones de este artículo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
-                    JSONObject object = new JSONObject();
+                    JSONArray array = new JSONArray();
                     try {
-                        object.put("doi", "Nul");
-                        myRef.child("Suscripciones").setValue(object.toString());
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject= jsonArray.getJSONObject(i);
+                            if (art_selec.getPublicacion_id().equals(jsonObject.get("id").toString())) {
+                                jsonArray.remove(i);
+                            }
+                            //sList.add(jsonObject.get("doi").toString());
+                        }
+                        /*
+                        JSONObject Articulo = new JSONObject();
+                        JSONObject Lista = new JSONObject();
+                        Articulo.put("id", art_selec.getPublicacion_id());
+                        Articulo.put("fecha", art_selec.getFecha_publicacion());
+                        array.put(Articulo);
+                        //Lista.put("Articulo",Articulo);
+                        array.put(Articulo);
+                        array.put(Articulo);
+                        String jo   sn=array.toString();
+                         */
+                        myRef.child("Suscripciones").setValue(jsonArray.toString());
                         Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                         //guardado en la bd
                     } catch (JSONException e) {
@@ -175,17 +238,22 @@ public class activity_detalle_articulo extends AppCompatActivity {
         } else {
             //Si se suscribió cambiar ícono e imagen
             FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-            FirebaseMessaging.getInstance().subscribeToTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
+            FirebaseMessaging.getInstance().subscribeToTopic(art_selec.getPublicacion_id()).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(activity_detalle_articulo.this, "Recibira notificaciones de este artículo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_detalle_articulo.this, "Recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                     //se subscribio a topic general
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
-                    JSONObject object = new JSONObject();
+                    JSONArray array = new JSONArray();
                     try {
-                        object.put("doi", doi);
-                        myRef.child("Suscripciones").setValue(object.toString());
+                        JSONObject Articulo = new JSONObject();
+                        Articulo.put("id", art_selec.getPublicacion_id());
+                        Articulo.put("fecha", art_selec.getFecha_publicacion());
+                        Articulo.put("titulo", art_selec.getTitulo());
+                        //array.put(Articulo);
+                        jsonArray.put(Articulo);
+                        myRef.child("Suscripciones").setValue(jsonArray.toString());
                         //guardado en la bd
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -194,8 +262,6 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     //Toast.makeText(activity_detalle_articulo.this, "Se guardo en la bd como un articulo a recibir notificaciones", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
 //        //Si dejó de suscribirse utilizar esta imagen
 //        imgResource = R.drawable.icon_no_suscrito_blanco;
 //        btnSuscribirse_Detalle.getResources();

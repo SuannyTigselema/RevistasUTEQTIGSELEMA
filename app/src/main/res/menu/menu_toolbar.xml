@@ -9,6 +9,12 @@
         android:title="Suscripciones"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/btnIdioma"
+        android:icon="@drawable/icon_idioma"
+        android:title="Idioma"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/btnCreditos"
         android:icon="@drawable/copyright_24"
         android:title="@string/creditos_titulo"

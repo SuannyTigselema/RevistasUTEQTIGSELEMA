@@ -52,7 +52,7 @@ public class activity_creditos extends AppCompatActivity {
         rclAutores.setAdapter(adpCreditos);
 
         Credito a = new Credito("ALVAREZ CARPIO GILBERTO GERMAN");
-        Credito b = new Credito("BAÑO MERAJAIME FABRICIO");
+        Credito b = new Credito("BAÑO MERA JAIME FABRICIO");
         Credito c = new Credito("BRIONES MONTALVO CRISTHIAN DANILO");
         Credito d = new Credito("CELI YELA MANUEL CELSO");
         Credito e = new Credito("CORDERO BAZURTO JOSE STEVEN");

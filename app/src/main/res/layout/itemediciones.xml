@@ -96,7 +96,7 @@
                             android:layout_marginRight="10dp"
                             android:layout_marginBottom="10dp"
                             android:drawablePadding="10dp"
-                            android:text="Publicado: "
+                            android:text="@string/Publicado"
                             android:textColor="#ffff" />
 
                         <TextView
