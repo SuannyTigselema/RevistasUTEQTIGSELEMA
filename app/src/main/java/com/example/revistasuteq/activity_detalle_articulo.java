@@ -36,6 +36,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
     Boolean ban;
     Button btnVer, btnSuscribirse_Detalle;
     int imgResource;
+    JSONArray jsonArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,43 +73,40 @@ public class activity_detalle_articulo extends AppCompatActivity {
         doi = (art_selec.getPublicacion_id());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(getString(R.string.usuario));
+        jsonArray= new JSONArray();
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String json = snapshot.child("Suscripciones").getValue().toString();
-                List<String> sList = new ArrayList<String>();
-                String id= art_selec.getPublicacion_id();
                 ban = false;
-                /*
                 try {
-                    JSONObject jsonObject = new JSONObject(json);
-
-                    for (int i = 0; i < jsonObject.length(); i++) {
-
-                        if (id.equals(jsonObject.get("doi").toString())) {
-                            ban = true;
+                    String json = snapshot.child("Suscripciones").getValue().toString();
+                    try {
+                        String id= art_selec.getPublicacion_id();
+                        jsonArray = new JSONArray(json);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject= jsonArray.getJSONObject(i);
+                            if (id.equals(jsonObject.get("id").toString())) {
+                                ban = true;
+                            }
+                            //sList.add(jsonObject.get("doi").toString());
                         }
-                        //sList.add(jsonObject.get("doi").toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    */
-                    if (ban) {
-                        int imgResource = R.drawable.icon_suscrito;
-                        //int imgResource = R.drawable.icon_no_suscrito_blanco;
-                        btnSuscribirse_Detalle.getResources();
-                        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-                        btnSuscribirse_Detalle.setText(R.string.Suscripto);
-                    } else {
-                        imgResource = R.drawable.icon_no_suscrito_blanco;
-                        btnSuscribirse_Detalle.getResources();
-                        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
-                        btnSuscribirse_Detalle.setText(R.string.SuscribirseArticuloDetall);
-                    }
-               /* } catch (JSONException e) {
-                    e.printStackTrace();
+                }catch (Exception e){
                 }
-
-                */
-
+                if (ban) {
+                    int imgResource = R.drawable.icon_suscrito;
+                    //int imgResource = R.drawable.icon_no_suscrito_blanco;
+                    btnSuscribirse_Detalle.getResources();
+                    btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
+                    btnSuscribirse_Detalle.setText(R.string.Suscripto);
+                } else {
+                    imgResource = R.drawable.icon_no_suscrito_blanco;
+                    btnSuscribirse_Detalle.getResources();
+                    btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
+                    btnSuscribirse_Detalle.setText(R.string.SuscribirseArticuloDetall);
+                }
             }
 
             @Override
@@ -170,16 +168,26 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                     JSONArray array = new JSONArray();
                     try {
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject= jsonArray.getJSONObject(i);
+                            if (art_selec.getPublicacion_id().equals(jsonObject.get("id").toString())) {
+                                jsonArray.remove(i);
+                            }
+                            //sList.add(jsonObject.get("doi").toString());
+                        }
+                        /*
                         JSONObject Articulo = new JSONObject();
                         JSONObject Lista = new JSONObject();
-                        Articulo.put("ID", art_selec.getPublicacion_id());
+                        Articulo.put("id", art_selec.getPublicacion_id());
                         Articulo.put("fecha", art_selec.getFecha_publicacion());
                         array.put(Articulo);
                         //Lista.put("Articulo",Articulo);
                         array.put(Articulo);
                         array.put(Articulo);
                         String josn=array.toString();
-                        myRef.child("Suscripciones").setValue(array.toString());
+                         */
+                        myRef.child("Suscripciones").setValue(jsonArray.toString());
                         Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                         //guardado en la bd
                     } catch (JSONException e) {
@@ -200,15 +208,11 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     JSONArray array = new JSONArray();
                     try {
                         JSONObject Articulo = new JSONObject();
-                        JSONObject Lista = new JSONObject();
-                        Articulo.put("ID", art_selec.getPublicacion_id());
+                        Articulo.put("id", art_selec.getPublicacion_id());
                         Articulo.put("fecha", art_selec.getFecha_publicacion());
-                        array.put(Articulo);
-                        //Lista.put("Articulo",Articulo);
-                        array.put(Articulo);
-                        array.put(Articulo);
-                        String josn=array.toString();
-                        myRef.child("Suscripciones").setValue(array.toString());
+                        //array.put(Articulo);
+                        jsonArray.put(Articulo);
+                        myRef.child("Suscripciones").setValue(jsonArray.toString());
                         //guardado en la bd
                     } catch (JSONException e) {
                         e.printStackTrace();
