@@ -11,20 +11,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity_creditos"></activity>
-        <activity android:name=".activity_suscripciones" />
-        <activity android:name=".edicionesR" />
+        <activity android:name=".activity_creditos" android:screenOrientation="portrait"></activity>
+        <activity android:name=".activity_suscripciones" android:screenOrientation="portrait"/>
+        <activity android:name=".edicionesR" android:screenOrientation="portrait" />
 
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".activity_visualizador" />
-        <activity android:name=".activity_detalle_articulo" />
-        <activity android:name=".activity_articulos" />
-        <activity android:name=".Ediciones" />
-        <activity android:name=".activityPrincipal" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity_visualizador" android:screenOrientation="portrait" />
+        <activity android:name=".activity_detalle_articulo" android:screenOrientation="portrait" />
+        <activity android:name=".activity_articulos" android:screenOrientation="portrait"/>
+        <activity android:name=".Ediciones" android:screenOrientation="portrait"/>
+        <activity android:name=".activityPrincipal" android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"   android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

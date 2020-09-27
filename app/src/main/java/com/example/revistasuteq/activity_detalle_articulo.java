@@ -140,7 +140,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         String autores = " ";
         for (int i = 0; i < art_selec.getLstAutores().size(); i++) {
             //autores=art_selec.getLstAutores().get(i).getNombres()+"-"+art_selec.getLstAutores().get(i).getFiliacion()+"\n"+autores;
-            autores = art_selec.getLstAutores().get(i).getNombres() + "\n" + autores;
+            autores = "• "+art_selec.getLstAutores().get(i).getNombres() + "\n" + autores;
         }
         txtAutores.setText(autores);
         // Bundle b = this.getIntent().getExtras();

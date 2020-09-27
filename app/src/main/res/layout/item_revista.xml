@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginTop="10dp"
     android:background="#E4E3E3">
 
     <androidx.cardview.widget.CardView
@@ -64,7 +65,7 @@
                 android:layout_below="@id/imgPortada"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/expand"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.885"

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-     android:layout_width="match_parent">
+     android:layout_width="match_parent"
+    android:background="#ffff">
 
     <include
         android:id="@+id/toolbar"
@@ -67,11 +68,11 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
-                        android:fontFamily="sans-serif"
+                        android:fontFamily="sans-serif-light"
                         android:gravity="center"
                         android:text="Las Bioferias y su potencial para promover el consumo de productos agroecológicos en Quito"
                         android:textColor="#000000"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
                     <!--                </ScrollView>-->
 
 
@@ -92,7 +93,7 @@
                     android:layout_marginHorizontal="10dp"
                     tools:context=".activity_detalle_articulo">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <RelativeLayout
                         android:id="@+id/cons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -100,41 +101,36 @@
 
                         <TextView
                             android:id="@+id/txtAutores"
-                            android:layout_width="239dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginStart="11dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/btnNotificar_Articulo_Detalle"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:layout_marginEnd="10dp"
+                            android:layout_toStartOf="@+id/btnNotificar_Articulo_Detalle"
+                            app:layout_constraintEnd_toStartOf="@+id/btnNotificar_Articulo_Detalle" />
 
                         <Button
                             android:id="@+id/btnNotificar_Articulo_Detalle"
                             android:layout_width="132dp"
                             android:layout_height="38dp"
                             android:layout_marginEnd="16dp"
-
                             android:background="@drawable/bordes_redondos3"
                             android:backgroundTint="#166E2D"
                             android:drawableLeft="@drawable/icon_notificar_si_blanco"
                             android:elevation="2dp"
-                            android:onClick="suscribirse"
+                            android:onClick="suscribirse "
                             android:paddingLeft="10dp"
                             android:tag="noti_no"
                             android:text="@string/SuscribirseArticuloDetall"
                             android:textColor="#F1E2E2"
                             android:textSize="12sp"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.659"
+                            android:layout_alignParentRight="true"
                             app:layout_constraintStart_toEndOf="@+id/txtfechaArticulo"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0"
                             app:tint="#D1D6D2" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/textView6"
@@ -154,7 +150,7 @@
                         android:layout_below="@+id/cons"
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="11dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="10dp"
                         android:text="DOI:"
                         android:textColor="#000000"
                         android:textStyle="bold" />
@@ -189,7 +185,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/cons"
                         android:layout_marginStart="2dp"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="10dp"
                         android:layout_toEndOf="@+id/textView7"
                         android:justificationMode="inter_word"
                         android:text="https://doi.org/10.18779/csye.v1i1.247"
@@ -216,7 +212,6 @@
                         android:layout_marginHorizontal="10dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="11dp"
-                        android:ems="10"
                         android:gravity="start|top"
                         android:inputType="textMultiLine"
                         android:text="Los Microcréditos como herramienta generadora de recursos contribuyen a mejorar la situación socioeconómica de sus familias. De manera preferencial estos, se conceden a grupos de mujeres de estratos sociales bajos y medios. El objetivo que se persigue es recibir de las instituciones financieras, microcréditos para mujeres emprendedoras que necesitan mejorar su calidad de vida y reducir la pobreza en Quevedo. Se aplicó encuestas a mujeres económicamente activas, con actividades micro-empresariales, para el tamaño de la muestra se empleó fórmula de población inferior a los 100.000. La actividad micro empresarial desarrollada por las mujeres en Quevedo está identificada por la comercialización de ropa con el 30%, seguido de la venta de víveres con 29.36%, comercialización de zapatos, entre las más importantes. En su actividad diaria comercial, el 50.42% ha recibido financiamiento de parte de la banca privada y el 34.35% de las mujeres han obtenido créditos con el Banco Nacional de Fomento. El 81.44% consideran que la calificación al interés que fijan las Instituciones financieras es aceptable. Los recursos financieros obtenidos de los Microcréditos es del 65% que son destinados a inversión en el negocio, mientras que el 35% es utilizado para pagos de gastos generales. Para el 66.48% de las mujeres de Quevedo, los microcréditos incidieron para el mejoramiento de la calidad de vida y el 33.52 contribuyeron a la reducción de la pobreza en cada hogar de las mujeres emprendedoras, impulsando el desarrollo socioeconómico de las familias del cantón."
