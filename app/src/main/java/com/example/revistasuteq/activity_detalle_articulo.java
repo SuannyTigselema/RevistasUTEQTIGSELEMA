@@ -78,9 +78,11 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 String json = snapshot.child("Suscripciones").getValue().toString();
                 List<String> sList = new ArrayList<String>();
                 String id= art_selec.getPublicacion_id();
+                ban = false;
+                /*
                 try {
                     JSONObject jsonObject = new JSONObject(json);
-                    ban = false;
+
                     for (int i = 0; i < jsonObject.length(); i++) {
 
                         if (id.equals(jsonObject.get("doi").toString())) {
@@ -88,6 +90,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
                         }
                         //sList.add(jsonObject.get("doi").toString());
                     }
+                    */
                     if (ban) {
                         int imgResource = R.drawable.icon_suscrito;
                         //int imgResource = R.drawable.icon_no_suscrito_blanco;
@@ -100,9 +103,12 @@ public class activity_detalle_articulo extends AppCompatActivity {
                         btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
                         btnSuscribirse_Detalle.setText(R.string.SuscribirseArticuloDetall);
                     }
-                } catch (JSONException e) {
+               /* } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                */
+
             }
 
             @Override
@@ -164,10 +170,12 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                     JSONArray array = new JSONArray();
                     try {
-                        JSONObject object = new JSONObject();
-                        object.put("id", "null");
-                        array.put(object);
-                        myRef.child("Suscripciones").setValue(object.toString());
+                        JSONObject Articulo = new JSONObject();
+                        Articulo.put("ID", art_selec.getPublicacion_id());
+                        Articulo.put("fecha", art_selec.getFecha_publicacion());
+                        array.put(Articulo);
+                        String josn=array.toString();
+                        myRef.child("Suscripciones").setValue(array.toString());
                         Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                         //guardado en la bd
                     } catch (JSONException e) {
@@ -187,10 +195,11 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                     JSONArray array = new JSONArray();
                     try {
-                        JSONObject object = new JSONObject("Articulo");
-                        object.put("id", art_selec.getPublicacion_id());
-                        object.put("fecha", art_selec.getFecha_publicacion());
-                        array.put(object);
+                        JSONObject Articulo = new JSONObject();
+                        Articulo.put("ID", art_selec.getPublicacion_id());
+                        Articulo.put("fecha", art_selec.getFecha_publicacion());
+                        array.put(Articulo);
+                        String josn=array.toString();
                         myRef.child("Suscripciones").setValue(array.toString());
                         //guardado en la bd
                     } catch (JSONException e) {
