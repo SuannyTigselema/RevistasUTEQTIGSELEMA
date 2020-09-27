@@ -39,7 +39,11 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.revistasuteq.WebService.Asynchtask;
+import com.example.revistasuteq.WebService.WebService;
+import com.example.revistasuteq.adaptadores.adpIdioma;
 import com.example.revistasuteq.adaptadores.adpRevista;
+import com.example.revistasuteq.modelos.Idioma;
 import com.example.revistasuteq.objetos.revista;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -50,16 +54,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Map;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Asynchtask {
     Button btnContinuar;
     private  ArrayList<String>  list_of_items = new ArrayList<>();
+    adpIdioma adaptador;
+
 
     private CharSequence[] mAlertItems;
     private boolean[] mSelectedItems;
@@ -81,6 +98,16 @@ public class MainActivity extends AppCompatActivity {
         TextView mensaje = (TextView) findViewById(R.id.textView3);
         TextView seleccionar = (TextView) findViewById(R.id.textView5);
         Button ingresar = (Button) findViewById(R.id.btnContinuar);
+
+        handleSSLHandshake();
+
+        //WebService
+        Map<String, String> datos = new HashMap<String, String>();
+        WebService ws= new WebService("https://revistas.uteq.edu.ec/ws/site.php",
+                datos, MainActivity.this, MainActivity.this);
+        ws.execute("GET");
+
+
         // Agregar animaciones
        /* new Handler().postDelayed(new Runnable() {
             @Override
@@ -90,33 +117,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         }, 3000);*/
-
-        /*String url="https://revistas.uteq.edu.ec/ws/site.php";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray=response.getJSONArray("supported_locales");
-                            String[] vector=new String[jsonArray.length()];
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject idiomas=jsonArray.getJSONObject(i);
-                                vector[i]=idiomas.getString("locale");
-                            }
-                            String[] idiomas = vector;
-
-                            Slenguajes.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,idiomas));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });*/
-
 
         /*RequestQueue request = Volley.newRequestQueue(MainActivity.this);
         StringRequest volley=new StringRequest(Request.Method.GET, "https://revistas.uteq.edu.ec/ws/site.php", new Response.Listener<String>() {
@@ -156,8 +156,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         if(i==1)
                         {
-                             mensaje.setText("Welcome to our mobile portal of scientific journals");
-                             seleccionar.setText("Select a language to display");
+                            mensaje.setText("Welcome to our mobile portal of scientific journals");
+                            seleccionar.setText("Select a language to display");
                             ingresar.setText("ENTER");
                         }
                         else
@@ -178,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            //mostrarDialog();
 
                 String text = Slenguajes.getSelectedItem().toString();
                 if (text=="Español"){
@@ -240,6 +239,49 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("local", idioma);
             startActivity(intent);
             this.finish();
+        }
+    }
+
+    @Override
+    public void processFinish(String result) throws JSONException {
+        ArrayList<Idioma> lstIdiomas = new ArrayList<Idioma>();
+        try {
+            //Procesar APIRest Response
+            JSONArray JSONlistaRevistas= new JSONArray(result);
+            lstIdiomas = Idioma.JsonObjectsBuild(JSONlistaRevistas);
+            adaptador = new adpIdioma(lstIdiomas);
+        }
+        catch (JSONException e){
+            Toast.makeText(this.getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG);
+        }
+    }
+
+    public static void handleSSLHandshake() {
+        try {
+            TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {
+                }
+            }};
+
+            SSLContext sc = SSLContext.getInstance("SSL");
+            sc.init(null, trustAllCerts, new SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String arg0, SSLSession arg1) {
+                    return true;
+                }
+            });
+        } catch (Exception ignored) {
         }
     }
 }

@@ -180,10 +180,26 @@ public class activityPrincipal extends AppCompatActivity{
                             for (int i=0;i<response.length();i++){
                                 rev=new revista();
                                 JSONObject obj = response.getJSONObject(i);
-                                rev.setNombre(obj.getString("name"));
-                                rev.setPortada_url(obj.getString("portada"));
-                                rev.setAbrev(obj.getString("abbreviation"));
-                                rev.setDescripcion(obj.getString("description"));
+                                if(obj.isNull("name")){
+                                    rev.setNombre("");
+                                }else {
+                                    rev.setNombre(obj.getString("name"));
+                                }
+                                if(obj.isNull("portada")){
+                                    rev.setPortada_url("");
+                                }else {
+                                    rev.setPortada_url(obj.getString("portada"));
+                                }
+                                if(obj.isNull("abbreviation")){
+                                    rev.setAbrev(obj.getString(""));
+                                }else{
+                                    rev.setAbrev(obj.getString("abbreviation"));
+                                }
+                                if(obj.isNull("description")){
+                                    rev.setDescripcion(obj.getString(""));
+                                }else {
+                                    rev.setDescripcion(obj.getString("description"));
+                                }
                                 rev.setJournal_id(obj.getString("journal_id"));
                                 lstRevista.add(rev);
                             }
