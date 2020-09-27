@@ -186,11 +186,11 @@ public class edicionesR extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         //Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
-        if(id == R.id.btnSuscripciones) {
+        if(id == R.id.btnSuscripciones && !this.getClass().equals(activity_suscripciones.class)) {
             Intent intent = new Intent(this, activity_suscripciones.class);
             startActivity(intent);
         }
-        if(id == R.id.btnCreditos) {
+        if(id == R.id.btnCreditos && !this.getClass().equals(activity_creditos.class)) {
             Intent intent = new Intent(this, activity_creditos.class);
             startActivity(intent);
         }

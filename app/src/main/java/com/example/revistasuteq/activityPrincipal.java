@@ -67,7 +67,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class activityPrincipal extends AppCompatActivity{
-
+    public static activityPrincipal fa;
 
     @SuppressLint("TrulyRandom")
     public static void handleSSLHandshake() {
@@ -115,6 +115,7 @@ public class activityPrincipal extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fa=this;
         setContentView(R.layout.activity_principal);
         //
 
@@ -247,17 +248,18 @@ public class activityPrincipal extends AppCompatActivity{
 
         //Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
         if(id == R.id.btnSuscripciones) {
-            Intent intent = new Intent(this, activity_suscripciones.class);
+            Intent intent = new Intent(this, activity_suscripciones.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         }
         if(id == R.id.btnCreditos) {
-            Intent intent = new Intent(this, activity_creditos.class);
+            Intent intent = new Intent(this, activity_creditos.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         }
 
         if(id == R.id.btnIdioma) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            this.finish();
         }
 
         return super.onOptionsItemSelected(item);

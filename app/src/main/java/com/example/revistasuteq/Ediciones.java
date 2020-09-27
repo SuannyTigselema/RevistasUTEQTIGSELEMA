@@ -49,6 +49,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 public class Ediciones extends AppCompatActivity {
+    /*
     public static void handleSSLHandshake() {
         try {
             TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
@@ -94,9 +95,6 @@ public class Ediciones extends AppCompatActivity {
 
         Bundle b = this.getIntent().getExtras();
         revista rev_selec = (revista) getIntent().getSerializableExtra("revista");
-      /*  Toast toast1=Toast.makeText(getApplicationContext(),
-                "Seleccionaste: " + rev_selec.getJournal_id(), Toast.LENGTH_SHORT);
-        toast1.show();*/
 
         edicionRcl=new RecyclerView(this);
         edicionRcl=(RecyclerView)findViewById(R.id.rclEdicion);
@@ -201,4 +199,6 @@ public class Ediciones extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    */
+
 }

@@ -176,7 +176,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         Intent intent = new Intent(this, activity_visualizador.class);
         intent.putExtra("url", url);
         startActivity(intent);
-        this.finish();
+        //this.finish();
     }
     private  void mostrarDialogOpciones() {
         String urlPDF = "", urlHTML = "";

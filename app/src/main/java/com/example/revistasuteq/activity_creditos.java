@@ -34,6 +34,7 @@ public class activity_creditos extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creditos);
 
+
         rclAutores = findViewById(R.id.rclCreditos);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -122,17 +123,20 @@ public class activity_creditos extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
-        if(id == R.id.btnSuscripciones) {
-            Intent intent = new Intent(this, activity_suscripciones.class);
+        if(id == R.id.btnSuscripciones && !this.getClass().equals(activity_suscripciones.class)) {
+            Intent intent = new Intent(this, activity_suscripciones.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
+            this.finish();
         }
-        if(id == R.id.btnCreditos) {
-            Intent intent = new Intent(this, activity_creditos.class);
+        if(id == R.id.btnCreditos && !this.getClass().equals(activity_creditos.class)) {
+            Intent intent = new Intent(this, activity_creditos.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
+            this.finish();
         }
         if(id == R.id.btnIdioma) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
+            activityPrincipal.fa.finish();
             this.finish();
         }
         return super.onOptionsItemSelected(item);

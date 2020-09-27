@@ -189,10 +189,12 @@ public class activity_articulos extends AppCompatActivity {
         if(id == R.id.btnSuscripciones) {
             Intent intent = new Intent(this, activity_suscripciones.class);
             startActivity(intent);
+            this.finish();
         }
         if(id == R.id.btnCreditos) {
             Intent intent = new Intent(this, activity_creditos.class);
             startActivity(intent);
+            this.finish();
         }
         if(id == R.id.btnIdioma) {
             //Invocar algo para el idioma
