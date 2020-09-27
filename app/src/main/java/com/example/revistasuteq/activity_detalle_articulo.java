@@ -176,9 +176,9 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 String topic=art_selec.getPublicacion_id();
                 jsonObject.put( "to","/topics/"+topic);
                 JSONObject notificacion = new JSONObject();
-                notificacion.put("titulo","Estan leyenendo el articulo "+ art_selec.getTitulo());
-                notificacion.put("detalle","El usuario "+ getString(R.string.usuario));
-                jsonObject.put("data",notificacion);
+                notificacion.put("title","Estan leyenendo el articulo "+ art_selec.getTitulo());
+                notificacion.put("body","El usuario "+ getString(R.string.usuario));
+                jsonObject.put("notification",notificacion);
                 String URL="https://fcm.googleapis.com/fcm/send";
                 JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(Request.Method.POST,URL,jsonObject,null,null){
                     @Override
