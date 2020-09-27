@@ -131,7 +131,9 @@ public class activity_creditos extends AppCompatActivity {
             startActivity(intent);
         }
         if(id == R.id.btnIdioma) {
-            //Invocar algo para el idioma
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            this.finish();
         }
         return super.onOptionsItemSelected(item);
     }

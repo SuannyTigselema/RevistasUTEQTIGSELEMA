@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
@@ -55,6 +57,10 @@ public class activity_detalle_articulo extends AppCompatActivity {
         btnSuscribirse_Detalle = findViewById(R.id.btnNotificar_Articulo_Detalle);
         txtTitulo = findViewById(R.id.txtTituloDA);
         txtDOI = findViewById(R.id.txtDoiAD);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.parseColor("#176803"));
+        }
 
         requestQueue= Volley.newRequestQueue(getApplicationContext() );
 
@@ -318,7 +324,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
         if(id == R.id.btnSuscripciones) {
             Intent intent = new Intent(this, activity_suscripciones.class);
             startActivity(intent);

@@ -37,7 +37,7 @@ public class activity_suscripciones extends AppCompatActivity {
     RecyclerView rclSuscripciones;
     CardView trjShimmer;
     JSONArray jsonArray;
-
+    activity_suscripciones act = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +122,10 @@ public class activity_suscripciones extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         int posicion = rclSuscripciones.getChildAdapterPosition(view);
-                        Toast.makeText(getApplicationContext(), Integer.toString(posicion),Toast.LENGTH_LONG).show();
+                        /*Intent intent = new Intent(act.getApplicationContext(), activity_detalle_articulo.class);
+                        intent.putExtra("articulo", finalLista.get(posicion).getId());
+                        startActivity(intent);*/
+                        //Toast.makeText(getApplicationContext(), Integer.toString(posicion),Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -138,7 +141,7 @@ public class activity_suscripciones extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
         if(id == R.id.btnSuscripciones) {
             Intent intent = new Intent(this, activity_suscripciones.class);
             startActivity(intent);
@@ -150,6 +153,7 @@ public class activity_suscripciones extends AppCompatActivity {
         if(id == R.id.btnIdioma) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            this.finish();
         }
         return super.onOptionsItemSelected(item);
     }

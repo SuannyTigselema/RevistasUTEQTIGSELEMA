@@ -87,8 +87,7 @@ public class adpSuscripciones extends RecyclerView.Adapter<adpSuscripciones.View
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ShimmerFrameLayout shimmerFrameLayout;
-        TextView txtNombreArticulo, txtFechaArticulo;
-        Button btnShimmer;
+        TextView txtNombreArticulo, txtFechaArticulo, btnShimmer;
         ImageView notifi;
 
         public ViewHolder(@NonNull View itemView) {
@@ -96,14 +95,14 @@ public class adpSuscripciones extends RecyclerView.Adapter<adpSuscripciones.View
             shimmerFrameLayout = itemView.findViewById(R.id.shimmer);
             txtNombreArticulo = (TextView) itemView.findViewById(R.id.txtNombreArticuloS);
             txtFechaArticulo = (TextView) itemView.findViewById(R.id.txtFechaArticuloS);
-            btnShimmer = itemView.findViewById(R.id.btnShimmer);
+
             notifi=itemView.findViewById(R.id.notificacion_mis_suscripciones);
         }
 
         public void asignar_datos(Articulo valor) {
             txtNombreArticulo.setText(valor.getNombre());
             txtFechaArticulo.setText(valor.getFecha());
-            btnShimmer.setText("VER");
+
         }
         public void setOnClickListeners() {
             notifi.setOnClickListener(this);
