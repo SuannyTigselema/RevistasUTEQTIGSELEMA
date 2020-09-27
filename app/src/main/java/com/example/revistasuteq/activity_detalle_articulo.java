@@ -71,7 +71,6 @@ public class activity_detalle_articulo extends AppCompatActivity {
         btnVer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Notificar();
                 mostrarDialogOpciones();
             }
         });
