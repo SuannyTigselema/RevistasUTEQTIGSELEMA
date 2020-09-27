@@ -23,6 +23,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.revistasuteq.firebase.user;
 import com.example.revistasuteq.objetos.articulo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,7 +38,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class activity_detalle_articulo extends AppCompatActivity {
@@ -229,8 +233,11 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 String topic=art_selec.getPublicacion_id();
                 jsonObject.put( "to","/topics/"+topic);
                 JSONObject notificacion = new JSONObject();
-                notificacion.put("title","Están leyendo el artículo "+ art_selec.getTitulo());
-                notificacion.put("body","El usuario "+ getString(R.string.usuario));
+                notificacion.put("title","Revistas Científicas UTEQ ");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy, HH:mm", Locale.getDefault());
+                Date date = new Date();
+                String fecha = dateFormat.format(date);
+                notificacion.put("body","El usuario "+ user.user +" ha descargado el artículo "+ art_selec.getTitulo()+" a las " + fecha.substring(12,17) +" del " + fecha.substring(0,10));
                 jsonObject.put("notification",notificacion);
                 String URL="https://fcm.googleapis.com/fcm/send";
                 JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(Request.Method.POST,URL,jsonObject,null,null){
