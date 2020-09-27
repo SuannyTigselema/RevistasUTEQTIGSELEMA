@@ -22,7 +22,7 @@ public class adpCreditos extends RecyclerView.Adapter<adpCreditos.ViewHolder> im
     public adpCreditos(List<Credito> datos){this.datos = datos;}
 
     public static boolean showShimmer = true;
-    int cantShimmer = 5;
+    int cantShimmer = 17;
     private View.OnClickListener listener;
 
     @NonNull

@@ -253,6 +253,7 @@ public class activityPrincipal extends AppCompatActivity{
             Intent intent = new Intent(this, activity_creditos.class);
             startActivity(intent);
         }
+
         if(id == R.id.btnIdioma) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
