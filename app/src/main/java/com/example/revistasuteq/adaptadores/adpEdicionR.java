@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.revistasuteq.R;
+import com.example.revistasuteq.certificaciones.GlideApp;
 import com.example.revistasuteq.objetos.edicion;
 
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class adpEdicionR extends RecyclerView.Adapter<adpEdicionR.MyViewHolder>
             holder.txtDoi.setText(mLista.get(position).getDoi());
             holder.txtPubli.setText(mLista.get(position).getFecha_publicacion());
 
-            Glide.with(mContext)
+            GlideApp.with(mContext)
                     .load(mLista.get(position).getImagen())
                     .into(holder.imgPortada);
 
