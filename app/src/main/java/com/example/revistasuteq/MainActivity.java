@@ -202,10 +202,6 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
             Configuration config = new Configuration();
             config.locale = localizacion;
             getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-            Intent intent = new Intent(this, activityPrincipal.class);
-            intent.putExtra("local", idioma);
-            startActivity(intent);
-            this.finish();
         }
         if(idioma.equals("en_US")){
             Locale localizacion = new Locale("en", "US");
@@ -213,10 +209,6 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
             Configuration config = new Configuration();
             config.locale = localizacion;
             getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-            Intent intent = new Intent(this, activityPrincipal.class);
-            intent.putExtra("local", idioma);
-            startActivity(intent);
-            this.finish();
         }
         if(idioma.equals("pt_BR")){
             Locale localizacion = new Locale("pt", "BR");
@@ -224,11 +216,12 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
             Configuration config = new Configuration();
             config.locale = localizacion;
             getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-            Intent intent = new Intent(this, activityPrincipal.class);
-            intent.putExtra("local", idioma);
-            startActivity(intent);
-            this.finish();
+
         }
+        Intent intent = new Intent(this, activityPrincipal.class);
+        intent.putExtra("local", idioma);
+        startActivity(intent);
+        this.finish();
     }
 
     @Override
