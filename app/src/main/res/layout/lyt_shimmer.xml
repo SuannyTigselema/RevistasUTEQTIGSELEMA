@@ -67,15 +67,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="29dp"
                         android:layout_alignTop="@+id/txtFechaArticuloS"
-                        android:layout_alignParentEnd="true"
                         android:layout_marginTop="-7dp"
-                        android:layout_marginEnd="10dp"
+
+                        android:layout_marginEnd="20dp"
                         android:layout_marginBottom="8dp"
+                        android:layout_toStartOf="@+id/notificacion_mis_suscripciones"
                         android:background="@drawable/lyt_bordesredondos"
                         android:backgroundTint="@color/colorStatus"
                         android:textColor="#FFFFFF" />
 
-
+                    <ImageView
+                        android:id="@+id/notificacion_mis_suscripciones"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtNombreArticuloS"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/icon_notificar_activo" />
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>

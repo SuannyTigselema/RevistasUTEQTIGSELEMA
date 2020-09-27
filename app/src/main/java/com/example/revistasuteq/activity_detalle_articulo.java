@@ -159,7 +159,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
             FirebaseMessaging.getInstance().unsubscribeFromTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(activity_detalle_articulo.this, "Ya no recibira notificaciones de este artículo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                     JSONArray array = new JSONArray();
@@ -182,7 +182,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
             FirebaseMessaging.getInstance().subscribeToTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(activity_detalle_articulo.this, "Recibira notificaciones de este artículo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity_detalle_articulo.this, "Recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                     //se subscribio a topic general
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
@@ -198,8 +198,6 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     //Toast.makeText(activity_detalle_articulo.this, "Se guardo en la bd como un articulo a recibir notificaciones", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
 //        //Si dejó de suscribirse utilizar esta imagen
 //        imgResource = R.drawable.icon_no_suscrito_blanco;
 //        btnSuscribirse_Detalle.getResources();

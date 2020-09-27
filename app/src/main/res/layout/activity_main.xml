@@ -1,100 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorGreen" />
-
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="240dp"
-        android:layout_height="258dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="13dp"
-        android:src="@drawable/escudouteq" />
-
-
-    <TextView
-        android:id="@+id/txtUTEQ"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="-120dp"
-        android:fontFamily="@font/chela_one"
-        android:text="UTEQ"
-        android:textSize="89sp" />
-
-    <TextView
-        android:id="@+id/lblrevista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtUTEQ"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="-15dp"
-        android:fontFamily="@font/playfair_display"
-        android:text="Revistas OJS"
-        android:textSize="36sp"
-        android:textStyle="bold" />
-
-
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="257dp"
-        android:layout_below="@+id/imgLogo"
-
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="-80dp"
-        android:src="@drawable/ic_wave" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="28dp"
+        android:layout_below="@+id/textView3"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="104dp"
-        android:layout_marginBottom="10dp"
+
+        android:layout_marginBottom="243dp"
         android:autoLink="all"
         android:linksClickable="true"
-        android:text="https://revistas.uteq.edu.ec/"
-        android:textColor="#20BA48"
-        android:textSize="14sp"
+        android:text="revistas.uteq.edu.ec"
+        android:textColor="#595959"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/lblrevista"
+        android:layout_height="60dp"
+        android:layout_below="@+id/textView3"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="57dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnContinuar"
-            android:layout_width="154dp"
-            android:layout_height="45dp"
-            android:background="@drawable/button"
-            android:fontFamily="@font/playfair_display"
-            android:text="Continuar"
+            android:layout_width="117dp"
+            android:layout_height="37dp"
+            android:background="@drawable/lyt_bordesredondos"
+            android:backgroundTint="@color/colorStatus"
+            android:text="INGRESAR"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -102,5 +50,29 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-1dp"
+        android:scaleType="fitStart"
+        app:srcCompat="@drawable/fondo2" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="420dp"
+        android:layout_marginEnd="56dp"
+        android:text="Bienvenido a nuestro portal de revistas científicas"
+        android:textAlignment="center"
+        android:textColor="@color/colorStatus"
+        android:textSize="16dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
