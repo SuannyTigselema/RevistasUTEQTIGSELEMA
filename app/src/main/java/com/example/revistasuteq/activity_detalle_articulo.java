@@ -229,7 +229,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 String topic=art_selec.getPublicacion_id();
                 jsonObject.put( "to","/topics/"+topic);
                 JSONObject notificacion = new JSONObject();
-                notificacion.put("title","Estan leyenendo el articulo "+ art_selec.getTitulo());
+                notificacion.put("title","Están leyendo el artículo "+ art_selec.getTitulo());
                 notificacion.put("body","El usuario "+ getString(R.string.usuario));
                 jsonObject.put("notification",notificacion);
                 String URL="https://fcm.googleapis.com/fcm/send";
