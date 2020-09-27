@@ -121,7 +121,7 @@ public class activity_creditos extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-       // Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
         if(id == R.id.btnSuscripciones) {
             Intent intent = new Intent(this, activity_suscripciones.class);
             startActivity(intent);

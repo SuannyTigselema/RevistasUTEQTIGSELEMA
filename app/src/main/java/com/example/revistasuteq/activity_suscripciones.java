@@ -37,7 +37,7 @@ public class activity_suscripciones extends AppCompatActivity {
     RecyclerView rclSuscripciones;
     CardView trjShimmer;
     JSONArray jsonArray;
-
+    activity_suscripciones act = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,7 +122,10 @@ public class activity_suscripciones extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         int posicion = rclSuscripciones.getChildAdapterPosition(view);
-                        Toast.makeText(getApplicationContext(), Integer.toString(posicion),Toast.LENGTH_LONG).show();
+                        /*Intent intent = new Intent(act.getApplicationContext(), activity_detalle_articulo.class);
+                        intent.putExtra("articulo", finalLista.get(posicion).getId());
+                        startActivity(intent);*/
+                        //Toast.makeText(getApplicationContext(), Integer.toString(posicion),Toast.LENGTH_LONG).show();
                     }
                 });
             }
