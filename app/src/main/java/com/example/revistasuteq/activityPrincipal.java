@@ -180,25 +180,28 @@ public class activityPrincipal extends AppCompatActivity{
                             for (int i=0;i<response.length();i++){
                                 rev=new revista();
                                 JSONObject obj = response.getJSONObject(i);
-                                if(obj.isNull("name")){
-                                    rev.setNombre("");
-                                }else {
+                                if(obj.has("name")){
                                     rev.setNombre(obj.getString("name"));
-                                }
-                                if(obj.isNull("portada")){
-                                    rev.setPortada_url("");
                                 }else {
+                                    rev.setNombre("");
+                                }
+                                if(obj.has("portada")){
                                     rev.setPortada_url(obj.getString("portada"));
-                                }
-                                if(obj.isNull("abbreviation")){
-                                    rev.setAbrev(obj.getString(""));
-                                }else{
-                                    rev.setAbrev(obj.getString("abbreviation"));
-                                }
-                                if(obj.isNull("description")){
-                                    rev.setDescripcion(obj.getString(""));
                                 }else {
+                                    rev.setPortada_url("");
+
+                                }
+                                if(obj.has("abbreviation")){
+                                    rev.setAbrev(obj.getString("abbreviation"));
+                                }else{
+                                    rev.setAbrev("");
+
+                                }
+                                if(obj.has("description")){
                                     rev.setDescripcion(obj.getString("description"));
+                                }else {
+                                    rev.setDescripcion("");
+
                                 }
                                 rev.setJournal_id(obj.getString("journal_id"));
                                 lstRevista.add(rev);

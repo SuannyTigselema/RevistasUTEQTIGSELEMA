@@ -15,8 +15,8 @@ public class Idioma {
 
     public Idioma(JSONObject datos) throws JSONException {
         idiomas = Idiomas(datos.getString("supported_locales"));
-        email = datos.getString("contactEmail").toString();
-        titulo = datos.getString("title").toString();
+       // email = datos.getString("contactEmail").toString();
+       // titulo = datos.getString("title").toString();
     }
 
     //Construir un objeto de la clase Revista

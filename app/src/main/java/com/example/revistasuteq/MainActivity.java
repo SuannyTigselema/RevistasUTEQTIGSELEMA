@@ -81,7 +81,10 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
     private CharSequence[] mAlertItems;
     private boolean[] mSelectedItems;
     private String location;
-
+    TextView mensaje;
+    TextView seleccionar;
+    Button ingresar;
+    Spinner Slenguajes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,10 +97,10 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor("#1B8300"));
         }
-        Spinner Slenguajes = (Spinner) findViewById(R.id.spinner);
-        TextView mensaje = (TextView) findViewById(R.id.textView3);
-        TextView seleccionar = (TextView) findViewById(R.id.textView5);
-        Button ingresar = (Button) findViewById(R.id.btnContinuar);
+        Slenguajes = (Spinner) findViewById(R.id.spinner);
+        mensaje = (TextView) findViewById(R.id.textView3);
+        seleccionar = (TextView) findViewById(R.id.textView5);
+        ingresar = (Button) findViewById(R.id.btnContinuar);
 
         handleSSLHandshake();
 
@@ -148,48 +151,23 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
         request.add(volley);*/
 
         //En caso de que quieran hacer con el bton
-        String[] idiomas = {"Español","English"};
-        Slenguajes.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.lyt_spinneritem,idiomas));
-        Slenguajes.setOnItemSelectedListener(
-                new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        if(i==1)
-                        {
-                            mensaje.setText("Welcome to our mobile portal of scientific journals");
-                            seleccionar.setText("Select a language to display");
-                            ingresar.setText("ENTER");
-                        }
-                        else
-                        {
-                            mensaje.setText("Bienvenido a nuestro portal móvil de revistas científicas");
-                            seleccionar.setText("Seleccione un idioma a mostrar");
-                            ingresar.setText("INGRESAR");
-                        }
-                    }
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
 
-                    }
-                    //add some code here
-                }
-        );
         btnContinuar=(Button) findViewById(R.id.btnContinuar);
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 String text = Slenguajes.getSelectedItem().toString();
-                if (text=="Español"){
+              /*  if (text=="Español"){
                     text="es_ES";
                 }else {
                     text="en_US";
-                }
+                }*/
                 iniciar(text);
             }
         });
     }
-    public void mostrarDialog()
+   /* public void mostrarDialog()
     {
 
         mAlertItems = new CharSequence[]{
@@ -210,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
        builder.show();
 
 
-    }
+    }*/
     public void iniciar(String idioma)
     {
         SharedPreferences prefs = getSharedPreferences("MyPREFERENCES",MainActivity.this.MODE_PRIVATE);
@@ -240,6 +218,17 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
             startActivity(intent);
             this.finish();
         }
+        if(idioma.equals("pt_BR")){
+            Locale localizacion = new Locale("pt", "BR");
+            Locale.setDefault(localizacion);
+            Configuration config = new Configuration();
+            config.locale = localizacion;
+            getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+            Intent intent = new Intent(this, activityPrincipal.class);
+            intent.putExtra("local", idioma);
+            startActivity(intent);
+            this.finish();
+        }
     }
 
     @Override
@@ -250,6 +239,38 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
             JSONArray JSONlistaRevistas= new JSONArray(result);
             lstIdiomas = Idioma.JsonObjectsBuild(JSONlistaRevistas);
             adaptador = new adpIdioma(lstIdiomas);
+            String[] idiomas = new String[adaptador.datos.get(0).getIdiomas().size()];
+            int tamaño=adaptador.datos.get(0).getIdiomas().size();
+            for (int i=0;i<tamaño;i++){
+                idiomas[i]=adaptador.datos.get(0).getIdiomas().get(i);
+            }
+
+            Slenguajes.setAdapter(new ArrayAdapter<String>(getApplicationContext(), R.layout.lyt_spinneritem,idiomas));
+            Slenguajes.setOnItemSelectedListener(
+                    new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            if(i==1)
+                            {
+                                mensaje.setText("Welcome to our mobile portal of scientific journals");
+                                seleccionar.setText("Select a language to display");
+                                ingresar.setText("ENTER");
+                            }
+                            else
+                            {
+                                mensaje.setText("Bienvenido a nuestro portal móvil de revistas científicas");
+                                seleccionar.setText("Seleccione un idioma a mostrar");
+                                ingresar.setText("INGRESAR");
+                            }
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                        //add some code here
+                    }
+            );
+
         }
         catch (JSONException e){
             Toast.makeText(this.getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG);
