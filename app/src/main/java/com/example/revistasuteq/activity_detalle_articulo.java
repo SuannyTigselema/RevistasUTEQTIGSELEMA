@@ -171,8 +171,12 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     JSONArray array = new JSONArray();
                     try {
                         JSONObject Articulo = new JSONObject();
+                        JSONObject Lista = new JSONObject();
                         Articulo.put("ID", art_selec.getPublicacion_id());
                         Articulo.put("fecha", art_selec.getFecha_publicacion());
+                        array.put(Articulo);
+                        //Lista.put("Articulo",Articulo);
+                        array.put(Articulo);
                         array.put(Articulo);
                         String josn=array.toString();
                         myRef.child("Suscripciones").setValue(array.toString());
@@ -196,8 +200,12 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     JSONArray array = new JSONArray();
                     try {
                         JSONObject Articulo = new JSONObject();
+                        JSONObject Lista = new JSONObject();
                         Articulo.put("ID", art_selec.getPublicacion_id());
                         Articulo.put("fecha", art_selec.getFecha_publicacion());
+                        array.put(Articulo);
+                        //Lista.put("Articulo",Articulo);
+                        array.put(Articulo);
                         array.put(Articulo);
                         String josn=array.toString();
                         myRef.child("Suscripciones").setValue(array.toString());
