@@ -205,7 +205,6 @@ public class activity_detalle_articulo extends AppCompatActivity {
             }
 
     }
-
     public void suscribirse(View view) {
         if (ban) {
             FirebaseMessaging.getInstance().setAutoInitEnabled(true);
@@ -217,13 +216,11 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                     JSONArray array = new JSONArray();
                     try {
-
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject= jsonArray.getJSONObject(i);
                             if (art_selec.getPublicacion_id().equals(jsonObject.get("id").toString())) {
                                 jsonArray.remove(i);
                             }
-                            //sList.add(jsonObject.get("doi").toString());
                         }
                         myRef.child("Suscripciones").setValue(jsonArray.toString());
                         Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();

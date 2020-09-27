@@ -23,6 +23,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         Log.d("TAG", "Titulo : " + remoteMessage.getNotification().getTitle());
         Log.d("TAG", "Cuerpo : " + remoteMessage.getNotification().getBody());
+
         createNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody(),"img",getApplicationContext());
     }
     public void createNotification(String titulo,String detalle,String img, Context context) {

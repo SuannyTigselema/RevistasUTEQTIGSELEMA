@@ -141,6 +141,7 @@ public class activityPrincipal extends AppCompatActivity{
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                         myRef.child("Token").setValue(token);
+
                     }
                 });
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
