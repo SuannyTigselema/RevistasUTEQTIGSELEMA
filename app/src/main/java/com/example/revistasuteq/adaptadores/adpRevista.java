@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Response;
 import com.bumptech.glide.Glide;
 import com.example.revistasuteq.R;
+import com.example.revistasuteq.certificaciones.GlideApp;
 import com.example.revistasuteq.objetos.revista;
 
 import org.json.JSONArray;
@@ -75,7 +76,9 @@ public class adpRevista extends RecyclerView.Adapter<adpRevista.MyViewHolder>
             holder.lblNombre.setText(mLista.get(position).getNombre());
             holder.lblDescripcion.setText(Html.fromHtml(mLista.get(position).getDescripcion()));
             holder.lblabr.setText(mLista.get(position).getAbrev());
-            Glide.with(mContext)
+
+
+            GlideApp.with(mContext)
                     .load(mLista.get(position).getPortada_url())
                     .into(holder.imgPortada);
             holder.itemView.setSelected(selectedPos == position);
