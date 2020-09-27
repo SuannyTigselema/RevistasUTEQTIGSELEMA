@@ -164,11 +164,10 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                     JSONArray array = new JSONArray();
                     try {
-                        JSONObject object = new JSONObject("Articulo");
-                        object.put("id", art_selec.getPublicacion_id());
-                        object.put("id", art_selec.getFecha_publicacion());
+                        JSONObject object = new JSONObject();
+                        object.put("id", "null");
                         array.put(object);
-                        myRef.child("Suscripciones").setValue(array.toString());
+                        myRef.child("Suscripciones").setValue(object.toString());
                         Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                         //guardado en la bd
                     } catch (JSONException e) {
@@ -186,10 +185,13 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     //se subscribio a topic general
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
-                    JSONObject object = new JSONObject();
+                    JSONArray array = new JSONArray();
                     try {
-                        object.put("doi", doi);
-                        myRef.child("Suscripciones").setValue(object.toString());
+                        JSONObject object = new JSONObject("Articulo");
+                        object.put("id", art_selec.getPublicacion_id());
+                        object.put("fecha", art_selec.getFecha_publicacion());
+                        array.put(object);
+                        myRef.child("Suscripciones").setValue(array.toString());
                         //guardado en la bd
                     } catch (JSONException e) {
                         e.printStackTrace();
