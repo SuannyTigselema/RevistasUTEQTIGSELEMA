@@ -140,7 +140,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         String autores = " ";
         for (int i = 0; i < art_selec.getLstAutores().size(); i++) {
             //autores=art_selec.getLstAutores().get(i).getNombres()+"-"+art_selec.getLstAutores().get(i).getFiliacion()+"\n"+autores;
-            autores = "• "+art_selec.getLstAutores().get(i).getNombres() + "\n" + autores;
+            autores = art_selec.getLstAutores().get(i).getNombres() + "\n" + autores;
         }
         txtAutores.setText(autores);
         // Bundle b = this.getIntent().getExtras();
@@ -256,6 +256,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
                         JSONObject Articulo = new JSONObject();
                         Articulo.put("id", art_selec.getPublicacion_id());
                         Articulo.put("fecha", art_selec.getFecha_publicacion());
+                        Articulo.put("tittle", art_selec.getTitulo());
                         //array.put(Articulo);
                         jsonArray.put(Articulo);
                         myRef.child("Suscripciones").setValue(jsonArray.toString());
