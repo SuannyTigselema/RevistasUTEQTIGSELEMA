@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -164,7 +165,9 @@ public class activityPrincipal extends AppCompatActivity{
         progress=new ProgressDialog(this);
         progress.setMessage("Consultando...");
         progress.show();
-        String url="https://revistas.uteq.edu.ec/ws/journals.php";
+        SharedPreferences prefe = this.getSharedPreferences("MyPREFERENCES", MODE_PRIVATE);
+        String idioma = prefe.getString("Idioma", "es_ES");
+        String url="https://revistas.uteq.edu.ec/ws/journals.php?locale="+idioma+"";
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonArrayRequest jobReq = new JsonArrayRequest(Request.Method.GET, url,
                 new Response.Listener<JSONArray>() {

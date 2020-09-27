@@ -1,7 +1,9 @@
 package com.example.revistasuteq.adaptadores;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -49,6 +52,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class adpCategoria extends RecyclerView.Adapter<adpCategoria.MyViewHolder> {
     private Activity activity;
@@ -104,7 +109,9 @@ public class adpCategoria extends RecyclerView.Adapter<adpCategoria.MyViewHolder
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         holder.txtCategoria.setText(arrayListGroup.get(position).getSection());
         //https://revistas.uteq.edu.ec/ws/pubs.php?i_id=issued_ID&section=section_ID
-        String url="https://revistas.uteq.edu.ec/ws/pubs.php?i_id="+edicionID+"&section="+arrayListGroup.get(position).getSectionID()+"";
+        SharedPreferences prefe = this.activity.getSharedPreferences("MyPREFERENCES", MODE_PRIVATE);
+        String idioma = prefe.getString("Idioma", "es_ES");
+        String url="https://revistas.uteq.edu.ec/ws/pubs.php?i_id="+edicionID+"&section="+arrayListGroup.get(position).getSectionID()+"&locale="+idioma;
         final ArrayList<articulo> arrayListMember = new ArrayList<articulo>();
         RequestQueue queue = Volley.newRequestQueue(activity);
         JsonArrayRequest jobReq = new JsonArrayRequest(Request.Method.GET, url,

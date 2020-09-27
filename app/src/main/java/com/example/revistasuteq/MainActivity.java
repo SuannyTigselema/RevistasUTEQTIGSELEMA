@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -100,9 +101,13 @@ public class MainActivity extends AppCompatActivity {
     }
     public void iniciar(String idioma)
     {
+        SharedPreferences prefs = getSharedPreferences("MyPREFERENCES",MainActivity.this.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("Idioma", idioma);
+        editor.commit();
 
         if(idioma.equals("es_ES")){
-            Locale localizacion = new Locale("en", "ES");
+            Locale localizacion = new Locale("es", "ES");
             Locale.setDefault(localizacion);
             Configuration config = new Configuration();
             config.locale = localizacion;

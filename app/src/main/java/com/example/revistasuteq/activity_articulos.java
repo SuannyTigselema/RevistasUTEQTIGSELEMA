@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -101,7 +102,9 @@ public class activity_articulos extends AppCompatActivity {
         progress=new ProgressDialog(this);
         progress.setMessage("Consultando...");
         progress.show();
-        String url="https://revistas.uteq.edu.ec/ws/pubssections.php?i_id="+edic_selec.getId()+"";
+        SharedPreferences prefe = this.getSharedPreferences("MyPREFERENCES", MODE_PRIVATE);
+        String idioma = prefe.getString("Idioma", "es_ES");
+        String url="https://revistas.uteq.edu.ec/ws/pubs.php?i_id="+edic_selec.getId()+"&locale="+idioma;
 
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonArrayRequest jobReq = new JsonArrayRequest(Request.Method.GET, url,

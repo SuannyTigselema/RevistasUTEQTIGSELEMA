@@ -16,4 +16,5 @@
     <string name="VerArticuloDetall" translatable="false">VER ARTÍCULO</string>
     <string name="Suscripciones" translatable="false">Mis suscripciones</string>
     <string name="Suscripto" translatable="false">Suscrito</string>
+    <string name="Publicado" translatable="false">Publicado: </string>
 </resources>
