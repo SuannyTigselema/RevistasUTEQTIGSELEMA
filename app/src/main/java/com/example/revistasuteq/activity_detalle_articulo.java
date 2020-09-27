@@ -1,8 +1,10 @@
 package com.example.revistasuteq;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,9 +35,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class activity_detalle_articulo extends AppCompatActivity {
@@ -66,7 +66,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Notificar();
-                enviar_visualizador();
+                mostrarDialogOpciones();
             }
         });
         //Preguntar si está suscrito o no
@@ -164,14 +164,58 @@ public class activity_detalle_articulo extends AppCompatActivity {
 
     }
 
-    private void enviar_visualizador() {
-        Notificar();
+    private void enviar_visualizador(String url) {
+        // Notificar();
+        //   Toast.makeText(activity_detalle_articulo.this, mostrarDialogOpciones(), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, activity_visualizador.class);
-        intent.putExtra("articulo", art_selec);
+        intent.putExtra("url", url);
         startActivity(intent);
-        //this.finish();
+        this.finish();
     }
+    private  void mostrarDialogOpciones() {
+        String urlPDF = "", urlHTML = "";
+        //Lo recorre para separar la url de pdf y de html
+        for (int i = 0; i < art_selec.getLstGaleys().size(); i++) {
+            String label = art_selec.getLstGaleys().get(i).getLabel();
+            if (label.equals("PDF")) {
+                urlPDF = art_selec.getLstGaleys().get(i).getUrlViewGalley();
+            } else {
+                urlHTML = art_selec.getLstGaleys().get(i).getUrlViewGalley();
+            }
+        }
+        final String[] opcElegida = {""};
+        int size = art_selec.getLstGaleys().size();
+        final CharSequence[] opciones = new CharSequence[size];
+        String opc;
+        for (int i = 0; i < size; i++) {
+            //Las opciones de visualización de las que dispone el artículo
+            opc = art_selec.getLstGaleys().get(i).getLabel();
+            opciones[i] = opc;
+        }
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(Html.fromHtml("<font color='#166E2D'>Elige una Opción:</font>"));
+        String finalUrlHTML = urlHTML;
+        String finalUrlPDF = urlPDF;
+        builder.setItems(opciones, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (opciones[i].equals("PDF")) {
+                    opcElegida[0] = finalUrlPDF;
+                    enviar_visualizador(opcElegida[0]);
+                } else {
+                    if (opciones[i].equals("HTML")) {
+                        opcElegida[0] = finalUrlHTML;
+                        enviar_visualizador(opcElegida[0]);
+                    } else {
+                        dialogInterface.dismiss();
+                    }
+                }
+            }
+        });
+        builder.setIcon(R.drawable.leer);
+        builder.show();
+    }
     public void Notificar(){
         try {
             try {
