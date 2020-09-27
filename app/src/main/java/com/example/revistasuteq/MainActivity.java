@@ -118,33 +118,6 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
             }
         }, 3000);*/
 
-        /*String url="https://revistas.uteq.edu.ec/ws/site.php";
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            JSONArray jsonArray=response.getJSONArray("supported_locales");
-                            String[] vector=new String[jsonArray.length()];
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject idiomas=jsonArray.getJSONObject(i);
-                                vector[i]=idiomas.getString("locale");
-                            }
-                            String[] idiomas = vector;
-
-                            Slenguajes.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,idiomas));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });*/
-
-
         /*RequestQueue request = Volley.newRequestQueue(MainActivity.this);
         StringRequest volley=new StringRequest(Request.Method.GET, "https://revistas.uteq.edu.ec/ws/site.php", new Response.Listener<String>() {
             @Override
@@ -183,8 +156,8 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         if(i==1)
                         {
-                             mensaje.setText("Welcome to our mobile portal of scientific journals");
-                             seleccionar.setText("Select a language to display");
+                            mensaje.setText("Welcome to our mobile portal of scientific journals");
+                            seleccionar.setText("Select a language to display");
                             ingresar.setText("ENTER");
                         }
                         else
@@ -205,7 +178,6 @@ public class MainActivity extends AppCompatActivity implements Asynchtask {
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            //mostrarDialog();
 
                 String text = Slenguajes.getSelectedItem().toString();
                 if (text=="Español"){
