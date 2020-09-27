@@ -16,4 +16,5 @@
     <string name="Suscripciones" translatable="false">My subscriptions</string>
     <string name="Suscripto" translatable="false">Subscribed</string>
     <string name="Publicado" translatable="false">Published: </string>
+    <string name="Opciones" translatable="false">Choose an Option: </string>
 </resources>

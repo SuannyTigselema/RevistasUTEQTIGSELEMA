@@ -200,7 +200,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         }
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(Html.fromHtml("<font color='#166E2D'>Elige una Opción:</font>"));
+        builder.setTitle(Html.fromHtml("<font color='#166E2D'>"+getString(R.string.Opciones)+"</font>"));
         String finalUrlHTML = urlHTML;
         String finalUrlPDF = urlPDF;
         builder.setItems(opciones, new DialogInterface.OnClickListener() {
