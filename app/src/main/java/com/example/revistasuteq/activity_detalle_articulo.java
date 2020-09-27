@@ -3,12 +3,12 @@ package com.example.revistasuteq;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -56,7 +56,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         txtTitulo = findViewById(R.id.txtTituloDA);
         txtDOI = findViewById(R.id.txtDoiAD);
 
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue= Volley.newRequestQueue(getApplicationContext() );
 
         txtAutores = findViewById(R.id.txtAutores);
         txtPalabrasClave = findViewById(R.id.txtpalabrasclaveAD);
@@ -65,8 +65,8 @@ public class activity_detalle_articulo extends AppCompatActivity {
         btnVer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Notificar();
-                mostrarDialogOpciones();
+                //Notificar();
+                enviar_visualizador();
             }
         });
         //Preguntar si está suscrito o no
@@ -86,18 +86,19 @@ public class activity_detalle_articulo extends AppCompatActivity {
         doi = (art_selec.getPublicacion_id());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(getString(R.string.usuario));
-        jsonArray = new JSONArray();
+        jsonArray= new JSONArray();
+        ban = false;
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ban = false;
                 try {
+                    ban = false;
                     String json = snapshot.child("Suscripciones").getValue().toString();
                     try {
-                        String id = art_selec.getPublicacion_id();
+                        String id= art_selec.getPublicacion_id();
                         jsonArray = new JSONArray(json);
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            JSONObject jsonObject= jsonArray.getJSONObject(i);
                             if (id.equals(jsonObject.get("id").toString())) {
                                 ban = true;
                             }
@@ -106,7 +107,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                } catch (Exception e) {
+                }catch (Exception e){
                 }
                 if (ban) {
                     int imgResource = R.drawable.icon_suscrito;
@@ -142,7 +143,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         String autores = " ";
         for (int i = 0; i < art_selec.getLstAutores().size(); i++) {
             //autores=art_selec.getLstAutores().get(i).getNombres()+"-"+art_selec.getLstAutores().get(i).getFiliacion()+"\n"+autores;
-            autores = "• " + art_selec.getLstAutores().get(i).getNombres() + "\n" + autores;
+            autores = art_selec.getLstAutores().get(i).getNombres() + "\n" + autores;
         }
         txtAutores.setText(autores);
         // Bundle b = this.getIntent().getExtras();
@@ -163,61 +164,13 @@ public class activity_detalle_articulo extends AppCompatActivity {
 
     }
 
-    private void enviar_visualizador(String url) {
-       // Notificar();
-        //   Toast.makeText(activity_detalle_articulo.this, mostrarDialogOpciones(), Toast.LENGTH_LONG).show();
+    private void enviar_visualizador() {
+        Notificar();
         Intent intent = new Intent(this, activity_visualizador.class);
-        intent.putExtra("url", url);
+        intent.putExtra("articulo", art_selec);
         startActivity(intent);
-        this.finish();
+        //this.finish();
     }
-
-    private  void mostrarDialogOpciones() {
-
-        String urlPDF = "", urlHTML = "";
-        //Lo recorre para separar la url de pdf y de html
-        for (int i = 0; i < art_selec.getLstGaleys().size(); i++) {
-            String label = art_selec.getLstGaleys().get(i).getLabel();
-            if (label.equals("PDF")) {
-                urlPDF = art_selec.getLstGaleys().get(i).getUrlViewGalley();
-            } else {
-                urlHTML = art_selec.getLstGaleys().get(i).getUrlViewGalley();
-            }
-        }
-        final String[] opcElegida = {""};
-        int size = art_selec.getLstGaleys().size();
-        final CharSequence[] opciones = new CharSequence[size];
-        String opc;
-        for (int i = 0; i < size; i++) {
-            //Las opciones de visualización de las que dispone el artículo
-            opc = art_selec.getLstGaleys().get(i).getLabel();
-            opciones[i] = opc;
-        }
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(Html.fromHtml("<font color='#166E2D'>Elige una Opción:</font>"));
-        String finalUrlHTML = urlHTML;
-        String finalUrlPDF = urlPDF;
-        builder.setItems(opciones, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (opciones[i].equals("PDF")) {
-                    opcElegida[0] = finalUrlPDF;
-                    enviar_visualizador(opcElegida[0]);
-                } else {
-                    if (opciones[i].equals("HTML")) {
-                        opcElegida[0] = finalUrlHTML;
-                        enviar_visualizador(opcElegida[0]);
-                    } else {
-                        dialogInterface.dismiss();
-                    }
-                }
-            }
-        });
-        builder.setIcon(R.drawable.leer);
-        builder.show();
-    }
-
 
     public void Notificar(){
         try {
@@ -252,7 +205,6 @@ public class activity_detalle_articulo extends AppCompatActivity {
             }
 
     }
-
     public void suscribirse(View view) {
         if (ban) {
             FirebaseMessaging.getInstance().setAutoInitEnabled(true);
@@ -264,25 +216,12 @@ public class activity_detalle_articulo extends AppCompatActivity {
                     DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                     JSONArray array = new JSONArray();
                     try {
-
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject= jsonArray.getJSONObject(i);
                             if (art_selec.getPublicacion_id().equals(jsonObject.get("id").toString())) {
                                 jsonArray.remove(i);
                             }
-                            //sList.add(jsonObject.get("doi").toString());
                         }
-                        /*
-                        JSONObject Articulo = new JSONObject();
-                        JSONObject Lista = new JSONObject();
-                        Articulo.put("id", art_selec.getPublicacion_id());
-                        Articulo.put("fecha", art_selec.getFecha_publicacion());
-                        array.put(Articulo);
-                        //Lista.put("Articulo",Articulo);
-                        array.put(Articulo);
-                        array.put(Articulo);
-                        String jo   sn=array.toString();
-                         */
                         myRef.child("Suscripciones").setValue(jsonArray.toString());
                         Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                         //guardado en la bd
@@ -306,6 +245,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
                         JSONObject Articulo = new JSONObject();
                         Articulo.put("id", art_selec.getPublicacion_id());
                         Articulo.put("fecha", art_selec.getFecha_publicacion());
+                        Articulo.put("tittle", art_selec.getTitulo());
                         //array.put(Articulo);
                         jsonArray.put(Articulo);
                         myRef.child("Suscripciones").setValue(jsonArray.toString());
@@ -323,5 +263,29 @@ public class activity_detalle_articulo extends AppCompatActivity {
 //        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
 //        btnSuscribirse_Detalle.setText("Suscribirse");
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
+        if(id == R.id.btnSuscripciones) {
+            Intent intent = new Intent(this, activity_suscripciones.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnCreditos) {
+            Intent intent = new Intent(this, activity_creditos.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnIdioma) {
+            //Invocar algo para el idioma
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -76,6 +77,9 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.parseColor("#1B8300"));
         }
         Spinner Slenguajes = (Spinner) findViewById(R.id.spinner);
+        TextView mensaje = (TextView) findViewById(R.id.textView3);
+        TextView seleccionar = (TextView) findViewById(R.id.textView5);
+        Button ingresar = (Button) findViewById(R.id.btnContinuar);
         // Agregar animaciones
        /* new Handler().postDelayed(new Runnable() {
             @Override
@@ -141,9 +145,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         request.add(volley);*/
+
         //En caso de que quieran hacer con el bton
         String[] idiomas = {"Español","English"};
         Slenguajes.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,idiomas));
+        Slenguajes.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        if(i==1)
+                        {
+                             mensaje.setText("Welcome to our mobile portal of scientific journals");
+                             seleccionar.setText("Select a language to display");
+                            ingresar.setText("ENTER");
+                        }
+                        else
+                        {
+                            mensaje.setText("Bienvenido a nuestro portal móvil de revistas científicas");
+                            seleccionar.setText("Seleccione un idioma a mostrar");
+                            ingresar.setText("INGRESAR");
+                        }
+                    }
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                    //add some code here
+                }
+        );
         btnContinuar=(Button) findViewById(R.id.btnContinuar);
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -141,6 +141,7 @@ public class activityPrincipal extends AppCompatActivity{
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference myRef = database.getReference(getString(R.string.usuario));
                         myRef.child("Token").setValue(token);
+
                     }
                 });
         FirebaseMessaging.getInstance().setAutoInitEnabled(true);
@@ -244,7 +245,7 @@ public class activityPrincipal extends AppCompatActivity{
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
         if(id == R.id.btnSuscripciones) {
             Intent intent = new Intent(this, activity_suscripciones.class);
             startActivity(intent);
@@ -253,6 +254,7 @@ public class activityPrincipal extends AppCompatActivity{
             Intent intent = new Intent(this, activity_creditos.class);
             startActivity(intent);
         }
+
         if(id == R.id.btnIdioma) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

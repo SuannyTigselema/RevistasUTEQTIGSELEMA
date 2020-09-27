@@ -1,20 +1,33 @@
 package com.example.revistasuteq;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.revistasuteq.adaptadores.adpSuscripciones;
 import com.example.revistasuteq.modelos.Articulo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +36,7 @@ public class activity_suscripciones extends AppCompatActivity {
 
     RecyclerView rclSuscripciones;
     CardView trjShimmer;
+    JSONArray jsonArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +65,50 @@ public class activity_suscripciones extends AppCompatActivity {
         final adpSuscripciones adpSuscripciones = new adpSuscripciones(lista);
         rclSuscripciones.setAdapter(adpSuscripciones);
 
-        final Articulo a = new Articulo("La ingeniería experimental del centro UTEQusino y pragmáticos de las sesiones virtuales","09/09/2019");
-        Articulo b = new Articulo("Aplicaciones distribuidas, procesamiento mediante Hadoop para el BigData","29/19/2017");
-        Articulo c = new Articulo("Los centros informáticos de la zona central de la ciudad de Quevedo","12/04/2018");
+        //final Articulo a = new Articulo("La ingeniería experimental del centro UTEQusino y pragmáticos de las sesiones virtuales","09/09/2019");
+        //Articulo b = new Articulo("Aplicaciones distribuidas, procesamiento mediante Hadoop para el BigData","29/19/2017");
+        //Articulo c = new Articulo("Los centros informáticos de la zona central de la ciudad de Quevedo","12/04/2018");
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(getString(R.string.usuario));
+        jsonArray= new JSONArray();
         final List<Articulo> finalLista = new ArrayList<Articulo>();
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                try {
+                    String json = snapshot.child("Suscripciones").getValue().toString();
+                    try {
+                        jsonArray = new JSONArray(json);
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject= jsonArray.getJSONObject(i);
+                            String id, tittle, fecha;
+                            id=jsonObject.get("id").toString();
+                            fecha=jsonObject.get("fecha").toString();
+                            tittle=jsonObject.get("tittle").toString();
+                            finalLista.add(new Articulo(tittle,fecha,id));
+                            //sList.add(jsonObject.get("doi").toString());
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }catch (Exception e){
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        /*
         finalLista.add(a);
         finalLista.add(b);
         finalLista.add(c);
+
+         */
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -77,5 +127,30 @@ public class activity_suscripciones extends AppCompatActivity {
                 });
             }
         }, 1000);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
+        if(id == R.id.btnSuscripciones) {
+            Intent intent = new Intent(this, activity_suscripciones.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnCreditos) {
+            Intent intent = new Intent(this, activity_creditos.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnIdioma) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
