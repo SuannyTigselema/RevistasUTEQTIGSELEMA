@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -25,11 +26,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.revistasuteq.adaptadores.adpRevista;
+import com.example.revistasuteq.objetos.revista;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.JsonArray;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -57,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.parseColor("#1B8300"));
         }
+        Spinner Slenguajes = (Spinner) findViewById(R.id.spinner);
         // Agregar animaciones
        /* new Handler().postDelayed(new Runnable() {
             @Override
@@ -67,22 +86,87 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 3000);*/
 
+        /*String url="https://revistas.uteq.edu.ec/ws/site.php";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray=response.getJSONArray("supported_locales");
+                            String[] vector=new String[jsonArray.length()];
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject idiomas=jsonArray.getJSONObject(i);
+                                vector[i]=idiomas.getString("locale");
+                            }
+                            String[] idiomas = vector;
+
+                            Slenguajes.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,idiomas));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });*/
+
+
+        /*RequestQueue request = Volley.newRequestQueue(MainActivity.this);
+        StringRequest volley=new StringRequest(Request.Method.GET, "https://revistas.uteq.edu.ec/ws/site.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if(response.length()>0){
+                    try {
+                        JSONObject jsonArray= new JSONObject(response);
+                        JSONArray JSONlista =jsonArray.getJSONArray("supported_locales");
+                        String[] vector=new String[jsonArray.length()];
+                        for (int i = 0; i < JSONlista.length(); i++) {
+                            JSONObject jsonObject = JSONlista.getJSONObject(i);
+                            vector[i]=jsonObject.getString("locale");
+
+                        }
+                        String[] idiomas = vector;
+                        Slenguajes.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,idiomas));
+
+                    }catch (JSONException e){
+
+                    }
+                }
+            } }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        request.add(volley);*/
         //En caso de que quieran hacer con el bton
+        String[] idiomas = {"Español","English"};
+        Slenguajes.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item,idiomas));
         btnContinuar=(Button) findViewById(R.id.btnContinuar);
         btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            mostrarDialog();
+            //mostrarDialog();
+
+                String text = Slenguajes.getSelectedItem().toString();
+                if (text=="Español"){
+                    text="es_ES";
+                }else {
+                    text="en_US";
+                }
+                iniciar(text);
             }
         });
     }
     public void mostrarDialog()
     {
+
         mAlertItems = new CharSequence[]{
                 "es_ES",
                 "en_US",
         };
-
         final AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(Html.fromHtml("<font color='#0B871B'>Elige un idioma</font>"));
         builder.setSingleChoiceItems(mAlertItems, 0, new DialogInterface.OnClickListener() {
