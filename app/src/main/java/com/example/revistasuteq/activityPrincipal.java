@@ -243,6 +243,7 @@ public class activityPrincipal extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+
         Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
         if(id == R.id.btnSuscripciones) {
             Intent intent = new Intent(this, activity_suscripciones.class);
@@ -250,6 +251,10 @@ public class activityPrincipal extends AppCompatActivity{
         }
         if(id == R.id.btnCreditos) {
             Intent intent = new Intent(this, activity_creditos.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnIdioma) {
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
 
