@@ -44,7 +44,7 @@
                         android:tint="@color/colorStatus"
                         app:layout_constraintEnd_toStartOf="@+id/txtNombreArticuloS"
                         app:layout_constraintTop_toTopOf="@+id/txtNombreArticuloS"
-                        app:srcCompat="@drawable/radio_button_unchecked_24" />
+                        app:srcCompat="@drawable/ic_baseline_assignment_ind_24" />
 
                     <TextView
                         android:id="@+id/txtNombreAutor"

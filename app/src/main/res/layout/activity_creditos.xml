@@ -83,7 +83,7 @@
                 android:tint="@color/colorStatus"
                 app:srcCompat="@drawable/ic_baseline_info_24" />
 
-            <TextView
+            <com.codesgood.views.JustifiedTextView
                 android:id="@+id/txtNombreAutor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

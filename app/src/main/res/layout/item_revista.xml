@@ -60,12 +60,13 @@
 
             <Button
                 android:id="@+id/arrowBtn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_below="@id/imgPortada"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+
                 android:background="@drawable/expand"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.885"
