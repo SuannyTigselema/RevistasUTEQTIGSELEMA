@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -17,13 +18,15 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+    NotificationManager notifManager ;
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        Log.d("TAG", "Titulo : " + remoteMessage.getData().get("detalle"));
         createNotification("titulo","cuerpo","img",getApplicationContext());
     }
     public void createNotification(String titulo,String detalle,String img, Context context) {
-        NotificationManager notifManager = null;
+
         final int NOTIFY_ID = 0; // ID of notification
         //String id = context.getString(R.string.default_notification_channel_id); // default_channel_id
         //String title = context.getString(R.string.default_notification_channel_title); // Default Channel
@@ -45,9 +48,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             builder = new NotificationCompat.Builder(context, "1");
             intent = new Intent(context, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            Bundle noBundle = new Bundle();
-            noBundle.putString("img",img);
-            intent.putExtras(noBundle);
+
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder.setContentTitle(titulo)                            // required
                     .setSmallIcon(android.R.drawable.ic_popup_reminder)   // required
@@ -62,9 +63,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             builder = new NotificationCompat.Builder(context, "1");
             intent = new Intent(context, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            Bundle noBundle = new Bundle();
-            noBundle.putString("img",img);
-            intent.putExtras(noBundle);
+
             intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder.setContentTitle(titulo)                            // required

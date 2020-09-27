@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
@@ -52,12 +50,11 @@ public class activity_detalle_articulo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_articulo);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(Color.parseColor("#176803"));
-        }
         btnSuscribirse_Detalle = findViewById(R.id.btnNotificar_Articulo_Detalle);
         txtTitulo = findViewById(R.id.txtTituloDA);
         txtDOI = findViewById(R.id.txtDoiAD);
+
+        requestQueue= Volley.newRequestQueue(getApplicationContext() );
 
         txtAutores = findViewById(R.id.txtAutores);
         txtPalabrasClave = findViewById(R.id.txtpalabrasclaveAD);
@@ -66,7 +63,8 @@ public class activity_detalle_articulo extends AppCompatActivity {
         btnVer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                enviar_visualizador();
+                Notificar();
+                //enviar_visualizador();
             }
         });
         //Preguntar si está suscrito o no
@@ -160,41 +158,49 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        requestQueue= Volley.newRequestQueue(getApplicationContext());
+
     }
 
     private void enviar_visualizador() {
         Notificar();
         Intent intent = new Intent(this, activity_visualizador.class);
         intent.putExtra("articulo", art_selec);
-
         startActivity(intent);
         this.finish();
     }
 
     public void Notificar(){
         try {
-            JSONObject jsonObject=new JSONObject();
-            String topic=art_selec.getPublicacion_id();
-            jsonObject.put( "to","/topics/"+topic);
-            JSONObject notificacion = new JSONObject();
-            notificacion.put("titulo","Estan leyenendo el articulo "+ art_selec.getTitulo());
-            notificacion.put("detalle","El usuario "+ getString(R.string.usuario));
-            jsonObject.put("data",notificacion);
-            String URL="https://fcm.googleapis.com/fcm/send";
-            JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(Request.Method.POST,URL,jsonObject,null,null){
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String,String> header= new HashMap<>();
-                    header.put("content-type","application/json");
-                    header.put("authorization","key=AAAAAjKaNiM:APA91bF36kAxkwzCp4m54YHXKQoV5d9Wi8vGNHXtHsvn1ESuIoHBvPAwOhra0-YCE36tnREriY6rIGxorsv6SqxWGHZZ9lAkuj5dC0Mwkdks_4H32Ti1pGUIZXXlm-WwcFGcHYqkotRO");
-                    return  header;
-                }
-            };
-            requestQueue.add(jsonObjectRequest);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            try {
+                JSONObject jsonObject=new JSONObject();
+                String topic=art_selec.getPublicacion_id();
+                jsonObject.put( "to","/topics/"+topic);
+                JSONObject notificacion = new JSONObject();
+                notificacion.put("titulo","Estan leyenendo el articulo "+ art_selec.getTitulo());
+                notificacion.put("detalle","El usuario "+ getString(R.string.usuario));
+                jsonObject.put("data",notificacion);
+                String URL="https://fcm.googleapis.com/fcm/send";
+                JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(Request.Method.POST,URL,jsonObject,null,null){
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String,String> header= new HashMap<>();
+                        header.put("content-type","application/json");
+                        header.put("authorization","key=AAAAAjKaNiM:APA91bF36kAxkwzCp4m54YHXKQoV5d9Wi8vGNHXtHsvn1ESuIoHBvPAwOhra0-YCE36tnREriY6rIGxorsv6SqxWGHZZ9lAkuj5dC0Mwkdks_4H32Ti1pGUIZXXlm-WwcFGcHYqkotRO");
+                        return  header;
+                    }
+                };
+               try {
+                   requestQueue.add(jsonObjectRequest);
+               }catch (Exception ex){
+                   ex.getMessage();
+               }
+                 } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            }catch (Exception e){
+
+            }
+
     }
 
     public void suscribirse(View view) {
@@ -250,7 +256,6 @@ public class activity_detalle_articulo extends AppCompatActivity {
                         JSONObject Articulo = new JSONObject();
                         Articulo.put("id", art_selec.getPublicacion_id());
                         Articulo.put("fecha", art_selec.getFecha_publicacion());
-                        Articulo.put("titulo", art_selec.getTitulo());
                         //array.put(Articulo);
                         jsonArray.put(Articulo);
                         myRef.child("Suscripciones").setValue(jsonArray.toString());
