@@ -157,6 +157,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
     }
 
     private void enviar_visualizador() {
+        Notificar();
         Intent intent = new Intent(this, activity_visualizador.class);
         intent.putExtra("articulo", art_selec);
 
@@ -217,7 +218,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
                         //Lista.put("Articulo",Articulo);
                         array.put(Articulo);
                         array.put(Articulo);
-                        String josn=array.toString();
+                        String jo   sn=array.toString();
                          */
                         myRef.child("Suscripciones").setValue(jsonArray.toString());
                         Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
