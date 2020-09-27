@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Revistas UTEQ</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="usuario" translatable="false">Angel</string>
     <string name="creditos_titulo" translatable="false">Credits</string>
     <string name="creditos_ED" translatable="false">DEVELOPMENT TEAM</string>
     <string name="creditos_Final" translatable="false">"Project that was part of the subject Object Oriented Programming for mobile devices 2020-2021 PPA with teacher Cristian Zambrano Vega"</string>

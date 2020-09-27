@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Revistas UTEQ</string>
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="usuario" translatable="false">Angel</string>
     <string name="creditos_titulo" translatable="false">Créditos</string>
     <string name="creditos_ED" translatable="false">EQUIPE DE DESENVOLVIMIENTO</string>
     <string name="creditos_Final" translatable="false">Projeto que fazia parte da disciplina Programação Orientada a Objetos para dispositivos móveis PPA 2020-2021 com o professor Cristian Zambrano Vega</string>
