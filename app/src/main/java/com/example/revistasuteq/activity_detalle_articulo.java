@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -64,7 +66,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Notificar();
-                //enviar_visualizador();
+                enviar_visualizador();
             }
         });
         //Preguntar si está suscrito o no
@@ -167,7 +169,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         Intent intent = new Intent(this, activity_visualizador.class);
         intent.putExtra("articulo", art_selec);
         startActivity(intent);
-        this.finish();
+        //this.finish();
     }
 
     public void Notificar(){
@@ -264,5 +266,29 @@ public class activity_detalle_articulo extends AppCompatActivity {
 //        btnSuscribirse_Detalle.setCompoundDrawablesWithIntrinsicBounds(imgResource, 0, 0, 0);
 //        btnSuscribirse_Detalle.setText("Suscribirse");
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
+        if(id == R.id.btnSuscripciones) {
+            Intent intent = new Intent(this, activity_suscripciones.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnCreditos) {
+            Intent intent = new Intent(this, activity_creditos.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnIdioma) {
+            //Invocar algo para el idioma
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

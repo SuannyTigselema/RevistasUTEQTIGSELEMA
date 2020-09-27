@@ -1,5 +1,6 @@
 package com.example.revistasuteq;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +12,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -173,7 +176,29 @@ public class edicionesR extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar,menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
+        if(id == R.id.btnSuscripciones) {
+            Intent intent = new Intent(this, activity_suscripciones.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnCreditos) {
+            Intent intent = new Intent(this, activity_creditos.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnIdioma) {
+            //Invocar algo para el idioma
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }

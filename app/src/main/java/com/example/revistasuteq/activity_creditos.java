@@ -1,15 +1,19 @@
 package com.example.revistasuteq;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -39,13 +43,11 @@ public class activity_creditos extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.parseColor("#176803"));
         }
 
-
-
         LinearLayoutManager linear = new LinearLayoutManager(getApplicationContext());
         linear.setOrientation(LinearLayoutManager.VERTICAL);
         rclAutores.setLayoutManager(linear);
         rclAutores.hasFixedSize();
-        adpSuscripciones.showShimmer = true;
+        adpCreditos.showShimmer = true;
 
         List<Credito> lista = new ArrayList<Credito>();
         final adpCreditos adpCreditos = new adpCreditos(lista);
@@ -108,12 +110,30 @@ public class activity_creditos extends AppCompatActivity {
                 });
             }
         }, 1000);
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar,menu);
+        return true;
+    }
 
-
-
-
-
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        Toast.makeText(getApplicationContext(), Integer.toString(id), Toast.LENGTH_LONG).show();
+        if(id == R.id.btnSuscripciones) {
+            Intent intent = new Intent(this, activity_suscripciones.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnCreditos) {
+            Intent intent = new Intent(this, activity_creditos.class);
+            startActivity(intent);
+        }
+        if(id == R.id.btnIdioma) {
+            //Invocar algo para el idioma
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
