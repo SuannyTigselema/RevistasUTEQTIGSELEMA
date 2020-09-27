@@ -160,7 +160,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        requestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
+        requestQueue= Volley.newRequestQueue(getApplicationContext());
     }
 
     private void enviar_visualizador() {
