@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 3000);*/
         //En caso de que quieran hacer con el bton
-        txtTitulo=(TextView) findViewById(R.id.lblrevista);
+       // txtTitulo=(TextView) findViewById(R.id.lblrevista);
         cargarDatos();
 
         btnContinuar=(Button) findViewById(R.id.btnContinuar);
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                             for (int i=0;i<response.length();i++){
                                 JSONObject obj = response.getJSONObject(i);
                                 titulo[0] =obj.getString("title");
-                                txtTitulo.setText(titulo[0]);
+                            //    txtTitulo.setText(titulo[0]);
                                // primary_locale=obj.getString("primary_locale");
                                 for (int j=0; j<obj.getJSONArray("supported_locales").length();j++)
                                 {

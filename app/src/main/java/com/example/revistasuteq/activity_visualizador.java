@@ -31,11 +31,14 @@ public class activity_visualizador extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visualizador);
-        progress=new ProgressDialog(this);
+      progress=new ProgressDialog(this);
         progress.setMessage("Cargando...");
         progress.show();
+
+        //Recibe un objeto de tipo artículo que lo envía el activity_detalle_artículo
         art_selec = (articulo) getIntent().getSerializableExtra("articulo");
 
+        //Lo recorre para separar la url de pdf y de html
         for (int i=0;i<art_selec.getLstGaleys().size();i++) {
           String label=  art_selec.getLstGaleys().get(i).getLabel();
           if(label.equals("PDF")) {
@@ -46,15 +49,12 @@ public class activity_visualizador extends AppCompatActivity {
               url = art_selec.getLstGaleys().get(i).getUrlViewGalley();
           }
         }
+
+
         myWebView = (WebView) findViewById(R.id.webview);
-
-        //Url Ejemplo:
-      //  String pdf = "http://www.adobe.com/devnet/acrobat/pdfs/pdf_open_parameters.pdf";
-
-        //Carga url de .PDF en WebView  mediante Google Drive Viewer.
-      //  String finalURL="http://drive.google.com/viewerng/viewer?embedded=true&url=" + pdf;
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.getSettings().setBuiltInZoomControls(true);
+
         mostrarDialogOpciones();
 
         progress.hide();
@@ -66,16 +66,11 @@ public class activity_visualizador extends AppCompatActivity {
         String opc;
         for (int i =0; i<size;i++)
         {
-            /*if(i == 2) {
-                opc = "Cancelar";
-            }
-            else {*/
-                opc=art_selec.getLstGaleys().get(i).getLabel();
-         //   }
+            //Las opciones de visualización de las que dispone el artículo
+            opc=art_selec.getLstGaleys().get(i).getLabel();
             opciones[i]=opc;
-
         }
-        //opciones[size]="Cancelar";
+
         final AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle("Elige una Opción");
         builder.setItems(opciones, new DialogInterface.OnClickListener() {
