@@ -112,8 +112,9 @@ public class activity_articulos extends AppCompatActivity {
         progress.show();
         SharedPreferences prefe = this.getSharedPreferences("MyPREFERENCES", MODE_PRIVATE);
         String idioma = prefe.getString("Idioma", "es_ES");
-        String url="https://revistas.uteq.edu.ec/ws/pubs.php?i_id="+edic_selec.getId()+"&locale="+idioma;
+        //String url="https://revistas.uteq.edu.ec/ws/pubs.php?i_id="+edic_selec.getId()+"&locale="+idioma;
 
+        String url="https://revistas.uteq.edu.ec/ws/pubssections.php?i_id="+edic_selec.getId()+"&locale="+idioma;
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonArrayRequest jobReq = new JsonArrayRequest(Request.Method.GET, url,
                 new Response.Listener<JSONArray>() {

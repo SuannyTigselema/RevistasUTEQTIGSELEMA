@@ -48,7 +48,6 @@ public class activity_visualizador extends AppCompatActivity {
         progress.setMessage("Cargando...");
         progress.show();
      try {
-         myWebView = (WebView) findViewById(R.id.webview);
          Bundle extras = getIntent().getExtras();
          url_selec = extras.getString("url");
 
