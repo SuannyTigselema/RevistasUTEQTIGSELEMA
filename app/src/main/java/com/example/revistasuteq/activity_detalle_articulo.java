@@ -147,13 +147,13 @@ public class activity_detalle_articulo extends AppCompatActivity {
             if (i == 0)
                 keys = art_selec.getLstKeywordss().get(i).getKeyword() + ".";
             else
-                keys = art_selec.getLstKeywordss().get(i).getKeyword() + "," + keys;
+                keys = art_selec.getLstKeywordss().get(i).getKeyword() + ", " + keys;
         }
         txtPalabrasClave.setText(keys);
         String autores = " ";
         for (int i = 0; i < art_selec.getLstAutores().size(); i++) {
             //autores=art_selec.getLstAutores().get(i).getNombres()+"-"+art_selec.getLstAutores().get(i).getFiliacion()+"\n"+autores;
-            autores = art_selec.getLstAutores().get(i).getNombres() + "\n" + autores;
+            autores = "• "+art_selec.getLstAutores().get(i).getNombres() + "\n" + autores;
         }
         txtAutores.setText(autores);
         // Bundle b = this.getIntent().getExtras();
