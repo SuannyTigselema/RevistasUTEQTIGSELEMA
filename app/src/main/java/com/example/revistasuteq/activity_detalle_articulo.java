@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.revistasuteq.objetos.articulo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,7 +31,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class activity_detalle_articulo extends AppCompatActivity {
     articulo art_selec;
@@ -36,6 +42,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
     Boolean ban;
     Button btnVer, btnSuscribirse_Detalle;
     int imgResource;
+    RequestQueue requestQueue;
     JSONArray jsonArray;
 
     @Override
@@ -157,10 +164,35 @@ public class activity_detalle_articulo extends AppCompatActivity {
         this.finish();
     }
 
+    public void Notificar(){
+        try {
+            JSONObject jsonObject=new JSONObject();
+            String topic=art_selec.getPublicacion_id();
+            jsonObject.put( "to","/topics/"+topic);
+            JSONObject notificacion = new JSONObject();
+            notificacion.put("titulo","Estan leyenendo el articulo "+ art_selec.getTitulo());
+            notificacion.put("detalle","El usuario "+ getString(R.string.usuario));
+            jsonObject.put("data",notificacion);
+            String URL="https://fcm.googleapis.com/fcm/send";
+            JsonObjectRequest jsonObjectRequest= new JsonObjectRequest(Request.Method.POST,URL,jsonObject,null,null){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String,String> header= new HashMap<>();
+                    header.put("content-type","application/json");
+                    header.put("authorization","key=AAAAAjKaNiM:APA91bF36kAxkwzCp4m54YHXKQoV5d9Wi8vGNHXtHsvn1ESuIoHBvPAwOhra0-YCE36tnREriY6rIGxorsv6SqxWGHZZ9lAkuj5dC0Mwkdks_4H32Ti1pGUIZXXlm-WwcFGcHYqkotRO");
+                    return  header;
+                }
+            };
+            requestQueue.add(jsonObjectRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void suscribirse(View view) {
         if (ban) {
             FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(art_selec.getPublicacion_id()).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
@@ -198,7 +230,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         } else {
             //Si se suscribió cambiar ícono e imagen
             FirebaseMessaging.getInstance().setAutoInitEnabled(true);
-            FirebaseMessaging.getInstance().subscribeToTopic(doi).addOnCompleteListener(new OnCompleteListener<Void>() {
+            FirebaseMessaging.getInstance().subscribeToTopic(art_selec.getPublicacion_id()).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     Toast.makeText(activity_detalle_articulo.this, "Recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
