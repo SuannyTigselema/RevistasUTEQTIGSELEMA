@@ -6,15 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".edicionesR">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"></include>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="55dp"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/colorStatus">
+            android:background="@color/colorStatus"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/txtEdiTituloCab"
                 android:layout_width="wrap_content"
@@ -22,12 +30,13 @@
                 android:layout_above="@+id/txtEdiAbreCab"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="#ffff"
+                android:layout_marginBottom="0dp"
                 android:text="Universidad Técnica Estatal de Quevedo"
-                android:textSize="20sp"
-                android:textStyle="bold|italic" />
+                android:textColor="#ffff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtEdiAbreCab"
@@ -39,29 +48,23 @@
                 android:layout_marginBottom="5dp"
                 android:text="@string/EdicionesEdicion"
                 android:textColor="@color/coloramarillo"
-                android:textSize="18sp"
-                android:textStyle="bold|italic" />
+                android:textSize="14sp" />
         </LinearLayout>
 
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-
-
-
-            <RelativeLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rclEdiEdicion"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rclEdiEdicion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_centerInParent="true" />
-
-            </RelativeLayout>
-
+        </RelativeLayout>
 
 
     </LinearLayout>

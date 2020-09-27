@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_main);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(Color.parseColor("#176803"));
+            getWindow().setStatusBarColor(Color.parseColor("#1B8300"));
         }
         // Agregar animaciones
        /* new Handler().postDelayed(new Runnable() {
