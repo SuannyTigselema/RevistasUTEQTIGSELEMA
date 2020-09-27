@@ -183,7 +183,7 @@ public class activity_detalle_articulo extends AppCompatActivity {
         //Lo recorre para separar la url de pdf y de html
         for (int i = 0; i < art_selec.getLstGaleys().size(); i++) {
             String label = art_selec.getLstGaleys().get(i).getLabel();
-            if (label.equals("PDF")) {
+            if (label.equals("PDF")||label.equals("pdf")) {
                 urlPDF = art_selec.getLstGaleys().get(i).getUrlViewGalley();
             } else {
                 urlHTML = art_selec.getLstGaleys().get(i).getUrlViewGalley();
@@ -206,11 +206,11 @@ public class activity_detalle_articulo extends AppCompatActivity {
         builder.setItems(opciones, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (opciones[i].equals("PDF")) {
+                if (opciones[i].equals("PDF")||opciones[i].equals("pdf")) {
                     opcElegida[0] = finalUrlPDF;
                     enviar_visualizador(opcElegida[0]);
                 } else {
-                    if (opciones[i].equals("HTML")) {
+                    if (opciones[i].equals("HTML")||opciones[i].equals("html")) {
                         opcElegida[0] = finalUrlHTML;
                         enviar_visualizador(opcElegida[0]);
                     } else {
