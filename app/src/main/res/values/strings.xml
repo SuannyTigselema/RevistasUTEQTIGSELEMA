@@ -2,7 +2,7 @@
     <string name="app_name">Revistas UTEQ</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="usuario" translatable="false">Joss</string>
+    <string name="usuario" translatable="false">RubenD</string>
     <string name="creditos_titulo" translatable="false">Créditos</string>
     <string name="creditos_ED" translatable="false">EQUIPO DE DESARROLLO</string>
     <string name="creditos_Final" translatable="false">"Proyecto que formó parte de la materia Programación Orientada a Objetos para dispositivos móviles 2020-2021 PPA con el docente Cristian Zambrano Vega"</string>
