@@ -86,6 +86,7 @@ public class activity_suscripciones extends AppCompatActivity {
                             finalLista.add(new Articulo(tittle,fecha,id));
                             //sList.add(jsonObject.get("doi").toString());
                         }
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

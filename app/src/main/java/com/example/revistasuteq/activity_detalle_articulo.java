@@ -85,11 +85,12 @@ public class activity_detalle_articulo extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference(getString(R.string.usuario));
         jsonArray= new JSONArray();
+        ban = false;
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ban = false;
                 try {
+                    ban = false;
                     String json = snapshot.child("Suscripciones").getValue().toString();
                     try {
                         String id= art_selec.getPublicacion_id();
@@ -222,17 +223,6 @@ public class activity_detalle_articulo extends AppCompatActivity {
                             }
                             //sList.add(jsonObject.get("doi").toString());
                         }
-                        /*
-                        JSONObject Articulo = new JSONObject();
-                        JSONObject Lista = new JSONObject();
-                        Articulo.put("id", art_selec.getPublicacion_id());
-                        Articulo.put("fecha", art_selec.getFecha_publicacion());
-                        array.put(Articulo);
-                        //Lista.put("Articulo",Articulo);
-                        array.put(Articulo);
-                        array.put(Articulo);
-                        String jo   sn=array.toString();
-                         */
                         myRef.child("Suscripciones").setValue(jsonArray.toString());
                         Toast.makeText(activity_detalle_articulo.this, "Ya no recibirá notificaciones de este artículo", Toast.LENGTH_SHORT).show();
                         //guardado en la bd
