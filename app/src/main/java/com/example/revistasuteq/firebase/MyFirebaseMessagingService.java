@@ -21,8 +21,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.d("TAG", "Titulo : " + remoteMessage.getData().get("titulo"));
-        createNotification("titulo","cuerpo","img",getApplicationContext());
+        Log.d("TAG", "Titulo : " + remoteMessage.getNotification().getTitle());
+        Log.d("TAG", "Cuerpo : " + remoteMessage.getNotification().getBody());
+        createNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody(),"img",getApplicationContext());
     }
     public void createNotification(String titulo,String detalle,String img, Context context) {
         NotificationManager notifManager = null;
@@ -83,3 +84,4 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         notifManager.notify(NOTIFY_ID, notification);
     }
 }
+
