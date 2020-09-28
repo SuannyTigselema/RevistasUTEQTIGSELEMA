@@ -1,5 +1,5 @@
 package com.example.revistasuteq.firebase;
 
 public class user {
-    public static String user="Insertar nombre aquí..";
+    public static String user="InsertarNombre";
 }
